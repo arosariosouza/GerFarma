@@ -9,6 +9,7 @@ import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.RollbackException;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -373,6 +374,7 @@ public class PnlCliente extends JPanel {
         JDialog tela = new JDialog(f,true);
         tela.setContentPane(new PnlCliente());
         tela.setTitle("GerFarma - Cadastro de Clientes");
+        tela.setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
         tela.pack();
         tela.setVisible(true);
     }

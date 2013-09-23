@@ -4,6 +4,8 @@
  */
 package br.com.alf.gerfarma.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author flavio
@@ -62,6 +64,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GerFarma - Sistema de Gerenciamento de Farmácia");
         setBackground(java.awt.Color.white);
+        setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -336,37 +339,46 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itmSairActionPerformed
 
     private void itmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmClienteActionPerformed
+        // Mostra tela de cadastro de clientes
         new PnlCliente().mostrar(this);
     }//GEN-LAST:event_itmClienteActionPerformed
 
     private void itmFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFornecedorActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_itmFornecedorActionPerformed
 
     private void itmFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFuncionarioActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_itmFuncionarioActionPerformed
 
     private void itmMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMedicamentoActionPerformed
+        
     }//GEN-LAST:event_itmMedicamentoActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        //Exibi janela tela de balcao
+        new DlgBalcao(this, true).setVisible(true);        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void itmSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSobreActionPerformed
-
+        //Exibi tela sobre o sistema
+        new DlgSobre(this, true).setVisible(true);
     }//GEN-LAST:event_itmSobreActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -374,6 +386,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //Exibi janela de login ao abrir o formulario principal
         new DlgLogin(this,true).setVisible(true);
     }//GEN-LAST:event_formWindowOpened
 

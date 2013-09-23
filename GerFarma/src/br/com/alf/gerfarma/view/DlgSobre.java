@@ -4,6 +4,8 @@
  */
 package br.com.alf.gerfarma.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author allan
@@ -27,63 +29,154 @@ public class DlgSobre extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlLogo = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        pnlTexto = new javax.swing.JPanel();
+        lblVersao = new javax.swing.JLabel();
+        lblDesenvolvedores = new javax.swing.JLabel();
+        lblAllan = new javax.swing.JLabel();
+        lblFlavio = new javax.swing.JLabel();
+        lblLucisley = new javax.swing.JLabel();
+        btnFechar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sobre");
+        setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
+        setResizable(false);
+
+        pnlLogo.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLogo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_133x124.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnlLogoLayout = new javax.swing.GroupLayout(pnlLogo);
+        pnlLogo.setLayout(pnlLogoLayout);
+        pnlLogoLayout.setHorizontalGroup(
+            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLogoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLogo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlLogoLayout.setVerticalGroup(
+            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLogoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLogo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTitulo.setText("Sobre o GerFarma");
+
+        pnlTexto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblVersao.setText("Versão: 1.0");
+
+        lblDesenvolvedores.setText("Desenvolvedores:");
+
+        lblAllan.setText("Allan Carlos do Rosário Souza - 201140736");
+
+        lblFlavio.setText("Flávio Lúcio Curado - 201020240");
+
+        lblLucisley.setText("Lucisley Pereira Soares - 201020263");
+
+        javax.swing.GroupLayout pnlTextoLayout = new javax.swing.GroupLayout(pnlTexto);
+        pnlTexto.setLayout(pnlTextoLayout);
+        pnlTextoLayout.setHorizontalGroup(
+            pnlTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTextoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblVersao)
+                    .addGroup(pnlTextoLayout.createSequentialGroup()
+                        .addComponent(lblDesenvolvedores)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFlavio)
+                            .addComponent(lblAllan)
+                            .addComponent(lblLucisley))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlTextoLayout.setVerticalGroup(
+            pnlTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTextoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblVersao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDesenvolvedores)
+                    .addComponent(lblAllan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFlavio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLucisley)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(lblTitulo)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnFechar)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFechar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        //Fecha janela
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgSobre dialog = new DlgSobre(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JLabel lblAllan;
+    private javax.swing.JLabel lblDesenvolvedores;
+    private javax.swing.JLabel lblFlavio;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLucisley;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblVersao;
+    private javax.swing.JPanel pnlLogo;
+    private javax.swing.JPanel pnlTexto;
     // End of variables declaration//GEN-END:variables
 }
