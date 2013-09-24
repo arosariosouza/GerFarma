@@ -92,6 +92,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnBalcao.setText("Balcão");
         btnBalcao.setFocusable(false);
         btnBalcao.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnBalcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBalcaoActionPerformed(evt);
+            }
+        });
         tbarFerramenta.add(btnBalcao);
 
         btnVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/venda_48x48.png"))); // NOI18N
@@ -364,8 +369,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        //Exibi janela tela de balcao
-        new DlgBalcao(this, true).setVisible(true);        
+       cmdAbrirBalcao();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void itmSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSobreActionPerformed
@@ -389,6 +393,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         //Exibi janela de login ao abrir o formulario principal
         new DlgLogin(this,true).setVisible(true);
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnBalcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalcaoActionPerformed
+        cmdAbrirBalcao();
+    }//GEN-LAST:event_btnBalcaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmnuPrincipal;
@@ -424,4 +432,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sepOpcao1;
     private javax.swing.JToolBar tbarFerramenta;
     // End of variables declaration//GEN-END:variables
+
+    /* Exibi janela tela de balcao */
+    private void cmdAbrirBalcao() {        
+        new DlgBalcao(this, true).setVisible(true); 
+    }
+    
 }
