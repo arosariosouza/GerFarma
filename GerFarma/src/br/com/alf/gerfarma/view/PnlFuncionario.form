@@ -13,7 +13,7 @@
     </Component>
     <Component class="javax.persistence.Query" name="query">
       <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT p FROM PessoaFisica p"/>
+        <Property name="query" type="java.lang.String" value="SELECT f FROM Funcionario f"/>
         <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
           <ComponentRef name="entityManager"/>
         </Property>
@@ -31,7 +31,7 @@
         <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.PessoaFisica&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Funcionario&gt;"/>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
@@ -75,6 +75,9 @@
                                   <Component id="cidadeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="cepLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="telefoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="usuarioLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="senhaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cargoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -85,6 +88,9 @@
                                   <Component id="cidadeField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cepField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="telefoneField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="usuarioField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="senhaField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="masterScrollPane" pref="0" max="32767" attributes="0"/>
@@ -135,6 +141,21 @@
                   <Component id="telefoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="telefoneField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="usuarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="usuarioField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="senhaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="senhaField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cargoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" max="-2" attributes="1"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -159,6 +180,16 @@
           <Properties>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -230,6 +261,14 @@
                 <BindingParameter name="NAME" value="Telefone"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
+              <Subbinding sourcePath="${cargo}">
+                <BindingParameter name="NAME" value="Cargo"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${usuario}">
+                <BindingParameter name="NAME" value="Usuario"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
             </BindingProperty>
           </BindingProperties>
           <AuxValues>
@@ -272,6 +311,21 @@
     <Component class="javax.swing.JLabel" name="telefoneLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefone:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="usuarioLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Usuario:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="senhaLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Senha:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cargoLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargo:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cpfField">
@@ -330,12 +384,28 @@
         <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="telefoneField" targetPath="enabled" updateStrategy="1" immediately="false"/>
       </BindingProperties>
     </Component>
+    <Component class="javax.swing.JTextField" name="usuarioField">
+      <BindingProperties>
+        <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.usuario}" target="usuarioField" targetPath="text" updateStrategy="0" immediately="false">
+          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+        </BindingProperty>
+        <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="usuarioField" targetPath="enabled" updateStrategy="1" immediately="false"/>
+      </BindingProperties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="senhaField">
+      <BindingProperties>
+        <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.senha}" target="senhaField" targetPath="text" updateStrategy="0" immediately="false">
+          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+        </BindingProperty>
+        <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="senhaField" targetPath="enabled" updateStrategy="1" immediately="false"/>
+      </BindingProperties>
+    </Component>
     <Component class="javax.swing.JButton" name="saveButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/alf/gerfarma/view/img/salvar_32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Salvar"/>
+        <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
@@ -350,7 +420,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/alf/gerfarma/view/img/atualizar_32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Atualizar"/>
+        <Property name="text" type="java.lang.String" value="Refresh"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshButtonActionPerformed"/>
@@ -365,7 +435,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/alf/gerfarma/view/img/novo_32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Novo"/>
+        <Property name="text" type="java.lang.String" value="New"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newButtonActionPerformed"/>
@@ -380,7 +450,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/br/com/alf/gerfarma/view/img/apagar_32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Apagar"/>
+        <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
       <BindingProperties>
         <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="deleteButton" targetPath="enabled" updateStrategy="1" immediately="false"/>
@@ -392,6 +462,22 @@
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Caixa"/>
+            <StringItem index="1" value="Balconista"/>
+            <StringItem index="2" value="Farmac&#xea;utico"/>
+            <StringItem index="3" value="Gerente"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <BindingProperties>
+        <BindingProperty name="selectedItem" source="masterTable" sourcePath="${selectedElement.cargo}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="jComboBox1" targetPath="enabled" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
   </SubComponents>
 </Form>

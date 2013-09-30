@@ -42,11 +42,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         itmSair = new javax.swing.JMenuItem();
         mnuCadastro = new javax.swing.JMenu();
         itmCliente = new javax.swing.JMenuItem();
-        itmFornecedor = new javax.swing.JMenuItem();
+        itmMedico = new javax.swing.JMenuItem();
         itmFuncionario = new javax.swing.JMenuItem();
+        itmFornecedor = new javax.swing.JMenuItem();
         sepCadastro1 = new javax.swing.JPopupMenu.Separator();
         itmMedicamento = new javax.swing.JMenuItem();
-        itmCRM = new javax.swing.JMenuItem();
         itmCartao = new javax.swing.JMenuItem();
         mnuOperacao = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -184,16 +184,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnuCadastro.add(itmCliente);
 
-        itmFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        itmFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/fornecedor_32x32.png"))); // NOI18N
-        itmFornecedor.setMnemonic('f');
-        itmFornecedor.setText("Fornecedor");
-        itmFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        itmMedico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        itmMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/crm_32x32.png"))); // NOI18N
+        itmMedico.setText("Médico");
+        itmMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmFornecedorActionPerformed(evt);
+                itmMedicoActionPerformed(evt);
             }
         });
-        mnuCadastro.add(itmFornecedor);
+        mnuCadastro.add(itmMedico);
 
         itmFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         itmFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/funcionario_32x32.png"))); // NOI18N
@@ -205,11 +204,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         mnuCadastro.add(itmFuncionario);
+
+        itmFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        itmFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/fornecedor_32x32.png"))); // NOI18N
+        itmFornecedor.setMnemonic('f');
+        itmFornecedor.setText("Fornecedor");
+        itmFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmFornecedorActionPerformed(evt);
+            }
+        });
+        mnuCadastro.add(itmFornecedor);
         mnuCadastro.add(sepCadastro1);
 
-        itmMedicamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        itmMedicamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         itmMedicamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/medicamento_32x32.png"))); // NOI18N
-        itmMedicamento.setMnemonic('m');
+        itmMedicamento.setMnemonic('r');
         itmMedicamento.setText("Medicamento");
         itmMedicamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,16 +228,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         mnuCadastro.add(itmMedicamento);
 
-        itmCRM.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        itmCRM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/crm_32x32.png"))); // NOI18N
-        itmCRM.setMnemonic('r');
-        itmCRM.setText("CRM");
-        mnuCadastro.add(itmCRM);
-
         itmCartao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         itmCartao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/cartao_32x32.png"))); // NOI18N
         itmCartao.setMnemonic('t');
         itmCartao.setText("Cartão");
+        itmCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCartaoActionPerformed(evt);
+            }
+        });
         mnuCadastro.add(itmCartao);
 
         bmnuPrincipal.add(mnuCadastro);
@@ -349,16 +358,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itmClienteActionPerformed
 
     private void itmFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFornecedorActionPerformed
-        // TODO add your handling code here:
+        // Mostra tela de cadastro de clientes
+        new PnlFornecedor().mostrar(this);
     }//GEN-LAST:event_itmFornecedorActionPerformed
 
     private void itmFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFuncionarioActionPerformed
-        // TODO add your handling code here:
+        // Mostra tela de cadastro de clientes
+        new PnlFuncionario().mostrar(this);
     }//GEN-LAST:event_itmFuncionarioActionPerformed
-
-    private void itmMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMedicamentoActionPerformed
-        
-    }//GEN-LAST:event_itmMedicamentoActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         
@@ -398,17 +405,32 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cmdAbrirBalcao();
     }//GEN-LAST:event_btnBalcaoActionPerformed
 
+    private void itmCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCartaoActionPerformed
+        // Mostra tela de cadastro de cartões
+        new PnlCartao().mostrar(this);
+    }//GEN-LAST:event_itmCartaoActionPerformed
+
+    private void itmMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMedicamentoActionPerformed
+        // Mostra tela de cadastro de medicamentos
+        new PnlMedicamento().mostrar(this);
+    }//GEN-LAST:event_itmMedicamentoActionPerformed
+
+    private void itmMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMedicoActionPerformed
+        // Mostra tela de cadastro de medicamentos
+        new PnlMedico().mostrar(this);
+    }//GEN-LAST:event_itmMedicoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmnuPrincipal;
     private javax.swing.JButton btnBalcao;
     private javax.swing.JButton btnCompra;
     private javax.swing.JButton btnVenda;
-    private javax.swing.JMenuItem itmCRM;
     private javax.swing.JMenuItem itmCartao;
     private javax.swing.JMenuItem itmCliente;
     private javax.swing.JMenuItem itmFornecedor;
     private javax.swing.JMenuItem itmFuncionario;
     private javax.swing.JMenuItem itmMedicamento;
+    private javax.swing.JMenuItem itmMedico;
     private javax.swing.JMenuItem itmSair;
     private javax.swing.JMenuItem itmSobre;
     private javax.swing.JMenuItem jMenuItem12;

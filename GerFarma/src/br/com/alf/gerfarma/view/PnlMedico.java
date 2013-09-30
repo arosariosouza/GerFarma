@@ -4,7 +4,6 @@
  */
 package br.com.alf.gerfarma.view;
 
-import java.awt.EventQueue;
 import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,9 @@ import javax.swing.JPanel;
  *
  * @author allan
  */
-public class PnlCliente extends JPanel {
+public class PnlMedico extends JPanel {
     
-    public PnlCliente() {
+    public PnlMedico() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -38,7 +37,7 @@ public class PnlCliente extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("GERFARMAPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM PessoaFisica p");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT m FROM Medico m");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
@@ -49,6 +48,7 @@ public class PnlCliente extends JPanel {
         cidadeLabel = new javax.swing.JLabel();
         cepLabel = new javax.swing.JLabel();
         telefoneLabel = new javax.swing.JLabel();
+        crmLabel = new javax.swing.JLabel();
         cpfField = new javax.swing.JTextField();
         nomeField = new javax.swing.JTextField();
         enderecoField = new javax.swing.JTextField();
@@ -56,6 +56,7 @@ public class PnlCliente extends JPanel {
         cidadeField = new javax.swing.JTextField();
         cepField = new javax.swing.JTextField();
         telefoneField = new javax.swing.JTextField();
+        crmField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
@@ -85,6 +86,9 @@ public class PnlCliente extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${telefone}"));
         columnBinding.setColumnName("Telefone");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${crm}"));
+        columnBinding.setColumnName("Crm");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         masterScrollPane.setViewportView(masterTable);
@@ -102,6 +106,8 @@ public class PnlCliente extends JPanel {
         cepLabel.setText("Cep:");
 
         telefoneLabel.setText("Telefone:");
+
+        crmLabel.setText("Crm:");
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cpf}"), cpfField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue(null);
@@ -143,6 +149,12 @@ public class PnlCliente extends JPanel {
         binding.setSourceUnreadableValue(null);
         bindingGroup.addBinding(binding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), telefoneField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.crm}"), crmField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceUnreadableValue(null);
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), crmField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/salvar_32x32.png"))); // NOI18N
@@ -190,7 +202,8 @@ public class PnlCliente extends JPanel {
                                     .addComponent(bairroLabel)
                                     .addComponent(cidadeLabel)
                                     .addComponent(cepLabel)
-                                    .addComponent(telefoneLabel))
+                                    .addComponent(telefoneLabel)
+                                    .addComponent(crmLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cpfField)
@@ -199,7 +212,8 @@ public class PnlCliente extends JPanel {
                                     .addComponent(bairroField)
                                     .addComponent(cidadeField)
                                     .addComponent(cepField)
-                                    .addComponent(telefoneField)))
+                                    .addComponent(telefoneField)
+                                    .addComponent(crmField)))
                             .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -241,6 +255,10 @@ public class PnlCliente extends JPanel {
                     .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(crmLabel)
+                    .addComponent(crmField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(refreshButton)
                     .addComponent(deleteButton)
@@ -257,16 +275,16 @@ public class PnlCliente extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == saveButton) {
-                PnlCliente.this.saveButtonActionPerformed(evt);
+                PnlMedico.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                PnlCliente.this.refreshButtonActionPerformed(evt);
+                PnlMedico.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newButton) {
-                PnlCliente.this.newButtonActionPerformed(evt);
+                PnlMedico.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                PnlCliente.this.deleteButtonActionPerformed(evt);
+                PnlMedico.this.deleteButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -287,19 +305,19 @@ public class PnlCliente extends JPanel {
     
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<br.com.alf.gerfarma.model.entity.PessoaFisica> toRemove = new ArrayList<br.com.alf.gerfarma.model.entity.PessoaFisica>(selected.length);
+        List<br.com.alf.gerfarma.model.entity.Medico> toRemove = new ArrayList<br.com.alf.gerfarma.model.entity.Medico>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            br.com.alf.gerfarma.model.entity.PessoaFisica p = list.get(masterTable.convertRowIndexToModel(selected[idx]));
-            toRemove.add(p);
-            entityManager.remove(p);
+            br.com.alf.gerfarma.model.entity.Medico m = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            toRemove.add(m);
+            entityManager.remove(m);
         }
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
     
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        br.com.alf.gerfarma.model.entity.PessoaFisica p = new br.com.alf.gerfarma.model.entity.PessoaFisica();
-        entityManager.persist(p);
-        list.add(p);
+        br.com.alf.gerfarma.model.entity.Medico m = new br.com.alf.gerfarma.model.entity.Medico();
+        entityManager.persist(m);
+        list.add(m);
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
@@ -312,9 +330,9 @@ public class PnlCliente extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<br.com.alf.gerfarma.model.entity.PessoaFisica> merged = new ArrayList<br.com.alf.gerfarma.model.entity.PessoaFisica>(list.size());
-            for (br.com.alf.gerfarma.model.entity.PessoaFisica p : list) {
-                merged.add(entityManager.merge(p));
+            List<br.com.alf.gerfarma.model.entity.Medico> merged = new ArrayList<br.com.alf.gerfarma.model.entity.Medico>(list.size());
+            for (br.com.alf.gerfarma.model.entity.Medico m : list) {
+                merged.add(entityManager.merge(m));
             }
             list.clear();
             list.addAll(merged);
@@ -330,11 +348,13 @@ public class PnlCliente extends JPanel {
     private javax.swing.JLabel cidadeLabel;
     private javax.swing.JTextField cpfField;
     private javax.swing.JLabel cpfLabel;
+    private javax.swing.JTextField crmField;
+    private javax.swing.JLabel crmLabel;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField enderecoField;
     private javax.swing.JLabel enderecoLabel;
     private javax.persistence.EntityManager entityManager;
-    private java.util.List<br.com.alf.gerfarma.model.entity.PessoaFisica> list;
+    private java.util.List<br.com.alf.gerfarma.model.entity.Medico> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
@@ -348,11 +368,11 @@ public class PnlCliente extends JPanel {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    //Motra tela de cadastro de cartao
+    //Motra tela de cadastro de medicamento
     public void mostrar(JFrame f) {
         JDialog tela = new JDialog(f,true);
-        tela.setContentPane(new PnlCliente());
-        tela.setTitle("GerFarma - Cadastro de Clientes");
+        tela.setContentPane(new PnlMedico());
+        tela.setTitle("GerFarma - Cadastro de Médicos");
         tela.setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
         tela.pack();
         tela.setVisible(true);
