@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b361e282-007d-40bd-914b-bc78f871a55d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT TIPO_MEDICAMENTO, SUM(QUANTIDADE) AS QTDE_TOTAL, SUM(QUANTIDADE*VALOR_VENDIDO) AS VALOR_TOTAL 
+FROM gerfarma.medicamento AS m
+LEFT JOIN gerfarma.item_venda AS i ON m.ID_MEDICAMENTO = i.ID_MEDICAMENTO
+WHERE i.ID_VENDA > 0
+GROUP BY TIPO_MEDICAMENTO]]>
+	</queryString>
+	<field name="TIPO_MEDICAMENTO" class="java.lang.String"/>
+	<field name="QTDE_TOTAL" class="java.math.BigDecimal"/>
+	<field name="VALOR_TOTAL" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="1c7b8dde-fda4-42dd-9364-915ace9f4d19" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="967a0573-1b7c-42c1-8f29-a8a47f49307b" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6577459e-0f73-41f3-9f58-d496e84c6ee4" style="SubTitle" x="100" y="46" width="174" height="22"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="bdd4d21e-6536-4308-8b23-c39e6a446c09" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="bf63d8b8-1f62-47fc-a49e-e3dc5f6340bf" style="Column header" x="0" y="19" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[TIPO_MEDICAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3926d403-17a0-453d-853a-6f6c1a58abda" style="Column header" x="185" y="19" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[QTDE_TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53e0afac-1ec1-4886-892f-f75582bbcbc5" style="Column header" x="370" y="19" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[VALOR_TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="6c8cebd4-3e49-4c9c-808d-24b51fa6fa36" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="70cb10b7-fb61-44eb-8881-5e48df96cf02" style="Detail" x="0" y="0" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO_MEDICAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6f7bb16d-3c55-4b10-b396-12c7faded755" style="Detail" x="185" y="0" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTDE_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5cac5340-9289-4519-b315-7f4863c556e1" style="Detail" x="370" y="0" width="185" height="15"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="c4c5d7df-998c-4b51-98fe-2701f721d3fa" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="0d41be3f-2680-45b5-9102-469060d66f82" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="41d8b5f7-c7fb-4ffe-a0ce-cd3a44244d56" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="87baa095-6fc3-419d-b357-1c9473693a17" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

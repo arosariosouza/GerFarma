@@ -286,6 +286,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/relatorio_32x32.png"))); // NOI18N
         jMenuItem12.setMnemonic('e');
         jMenuItem12.setText("Venda por tipo de medicamento");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         mnuRelatio.add(jMenuItem12);
 
         jMenuItem16.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -420,6 +425,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         new PnlMedico().mostrar(this);
     }//GEN-LAST:event_itmMedicoActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmnuPrincipal;
     private javax.swing.JButton btnBalcao;

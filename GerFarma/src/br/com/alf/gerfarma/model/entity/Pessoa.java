@@ -24,7 +24,7 @@ import javax.persistence.Transient;
  * @author allan
  */
 @Entity
-@Table(name="PESSOA")
+@Table(name="pessoa")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="TIPO_PESSOA",length=20,discriminatorType = DiscriminatorType.STRING)
 public abstract class Pessoa implements Serializable {

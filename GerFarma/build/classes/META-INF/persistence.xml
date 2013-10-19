@@ -10,8 +10,8 @@
     <class>br.com.alf.gerfarma.model.entity.Medicamento</class>
     <class>br.com.alf.gerfarma.model.entity.Medico</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/GERFARMA"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gerfarma"/>
+      <property name="javax.persistence.jdbc.password" value="x"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
