@@ -403,7 +403,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Exibi janela de login ao abrir o formulario principal
-        new DlgLogin(this,true).setVisible(true);
+        new DlgLogin(this,true, DlgLogin.AUTENTICAR_GERENTE).setVisible(true);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnBalcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalcaoActionPerformed

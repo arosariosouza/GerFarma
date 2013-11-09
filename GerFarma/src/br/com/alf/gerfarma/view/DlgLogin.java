@@ -4,16 +4,25 @@
  */
 package br.com.alf.gerfarma.view;
 
+import br.com.alf.gerfarma.control.JusCadastroController;
+import br.com.alf.gerfarma.control.LoginController;
+import javax.swing.JFormattedTextField;
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author allan
  */
 public class DlgLogin extends javax.swing.JDialog {
 
+    public static final int AUTENTICAR_GERENTE = 1;
+    public static final int AUTENTICAR_BALCONISTA = 2;
+    public static final int AUTENTICAR_CAIXA = 3;
+    
     /**
      * Creates new form DlgLogin
      */
-    public DlgLogin(java.awt.Frame parent, boolean modal) {
+    public DlgLogin(java.awt.Frame parent, boolean modal, int autenticar) {
         super(parent, modal);
         initComponents();
     }
@@ -30,9 +39,9 @@ public class DlgLogin extends javax.swing.JDialog {
         lblUsuario = new javax.swing.JLabel();
         ftxtUsuario = new javax.swing.JFormattedTextField();
         lblSenha = new javax.swing.JLabel();
-        ftxtSenha = new javax.swing.JFormattedTextField();
         btnEntrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        ftxtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Gerfarma - Entrar");
@@ -81,14 +90,13 @@ public class DlgLogin extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuario)
                             .addComponent(lblSenha))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ftxtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                            .addComponent(ftxtUsuario))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(ftxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(ftxtSenha)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -103,8 +111,8 @@ public class DlgLogin extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(ftxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEntrar)
                     .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -115,12 +123,21 @@ public class DlgLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        dispose();
+        LoginController lc = new LoginController();
+        lc.logarGerente(this);
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void ftxtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftxtUsuarioActionPerformed
+
+    public JPasswordField getFtxtSenha() {
+        return ftxtSenha;
+    }
+
+    public JFormattedTextField getFtxtUsuario() {
+        return ftxtUsuario;
+    }
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // Fecha GerFarma
@@ -130,7 +147,7 @@ public class DlgLogin extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JFormattedTextField ftxtSenha;
+    private javax.swing.JPasswordField ftxtSenha;
     private javax.swing.JFormattedTextField ftxtUsuario;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;

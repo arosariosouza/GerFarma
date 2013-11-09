@@ -7,8 +7,8 @@ package br.com.alf.gerfarma.model.entity;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table
 @DiscriminatorValue(value="Funcionario")
+
+@NamedQueries({
+    @NamedQuery(name = "Funcionario.get", query = "SELECT f FROM Funcionario f WHERE f.usuario = :usuario AND f.senha = :senha")})
 public class Funcionario extends PessoaFisica {
 
     public static String CARGO_CAIXA = "caixa";

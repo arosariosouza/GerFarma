@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `gerfarma` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `gerfarma`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: gerfarma
+-- Host: localhost    Database: gerfarma
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.5.31-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,69 @@ USE `gerfarma`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `item_pedido`
+--
+
+DROP TABLE IF EXISTS `item_pedido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_pedido` (
+  `ID_ITEM_PEDIDO` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_PEDIDO` int(11) NOT NULL,
+  `ID_MEDICAMENTO` int(11) NOT NULL,
+  `QUANTIDADE` int(11) NOT NULL,
+  PRIMARY KEY (`ID_ITEM_PEDIDO`),
+  KEY `fk_ITEM_PEDIDO_PEDIDO` (`ID_PEDIDO`),
+  KEY `fk_ITEM_PEDIDO_MEDICAMENTO` (`ID_MEDICAMENTO`),
+  CONSTRAINT `fk_ITEM_PEDIDO_MEDICAMENTO` FOREIGN KEY (`ID_MEDICAMENTO`) REFERENCES `medicamento` (`ID_MEDICAMENTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEM_PEDIDO_PEDIDO` FOREIGN KEY (`ID_PEDIDO`) REFERENCES `pedido` (`ID_PEDIDO`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `item_pedido`
+--
+
+LOCK TABLES `item_pedido` WRITE;
+/*!40000 ALTER TABLE `item_pedido` DISABLE KEYS */;
+/*!40000 ALTER TABLE `item_pedido` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pre_venda`
+--
+
+DROP TABLE IF EXISTS `pre_venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pre_venda` (
+  `ID_PREVENDA` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_FUNCIONARIO` int(11) NOT NULL,
+  `ID_CLIENTE` int(11) DEFAULT NULL,
+  `ID_MEDICO` int(11) DEFAULT NULL,
+  `DATA_HORA_PREVENDA` datetime NOT NULL,
+  `DESCONTO` decimal(10,0) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID_PREVENDA`),
+  KEY `fk_PREVENDA_FUNCIONARIO` (`ID_FUNCIONARIO`),
+  KEY `fk_PREVENDA_CLIENTE` (`ID_CLIENTE`),
+  KEY `fk_PREVENDA_MEDICO` (`ID_MEDICO`),
+  CONSTRAINT `fk_PREVENDA_CLIENTE` FOREIGN KEY (`ID_CLIENTE`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PREVENDA_FUNCIONARIO` FOREIGN KEY (`ID_FUNCIONARIO`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PREVENDA_MEDICO` FOREIGN KEY (`ID_MEDICO`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pre_venda`
+--
+
+LOCK TABLES `pre_venda` WRITE;
+/*!40000 ALTER TABLE `pre_venda` DISABLE KEYS */;
+INSERT INTO `pre_venda` VALUES (1,1,1,1,'2013-01-01 09:00:00',5);
+/*!40000 ALTER TABLE `pre_venda` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cartao`
@@ -39,135 +102,6 @@ LOCK TABLES `cartao` WRITE;
 /*!40000 ALTER TABLE `cartao` DISABLE KEYS */;
 INSERT INTO `cartao` VALUES (1,'Visa'),(2,'Master'),(3,'Diners'),(4,'Elo');
 /*!40000 ALTER TABLE `cartao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `funcionario`
---
-
-DROP TABLE IF EXISTS `funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `funcionario` (
-  `ID_PESSOA` int(11) NOT NULL AUTO_INCREMENT,
-  `CPF` varchar(11) DEFAULT NULL,
-  `NOME` varchar(60) NOT NULL,
-  `ENDERECO` varchar(100) DEFAULT NULL,
-  `BAIRRO` varchar(50) DEFAULT NULL,
-  `CIDADE` varchar(50) DEFAULT NULL,
-  `CEP` varchar(8) DEFAULT NULL,
-  `TELEFONE` varchar(11) DEFAULT NULL,
-  `CARGO` varchar(45) DEFAULT NULL,
-  `USUARIO` varchar(10) DEFAULT NULL,
-  `SENHA` varchar(45) DEFAULT NULL,
-  `CRM` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`ID_PESSOA`),
-  UNIQUE KEY `NOME_UNIQUE` (`NOME`),
-  UNIQUE KEY `CPF_UNIQUE` (`CPF`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `funcionario`
---
-
-LOCK TABLES `funcionario` WRITE;
-/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `item_pedido`
---
-
-DROP TABLE IF EXISTS `item_pedido`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item_pedido` (
-  `ID_ITEM_PEDIDO` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_PEDIDO` int(11) NOT NULL,
-  `ID_MEDICAMENTO` int(11) NOT NULL,
-  `QUANTIDADE` int(11) NOT NULL,
-  PRIMARY KEY (`ID_ITEM_PEDIDO`),
-  KEY `fk_ITEM_PEDIDO_PEDIDO` (`ID_PEDIDO`),
-  KEY `fk_ITEM_PEDIDO_MEDICAMENTO` (`ID_MEDICAMENTO`),
-  CONSTRAINT `fk_ITEM_PEDIDO_PEDIDO` FOREIGN KEY (`ID_PEDIDO`) REFERENCES `pedido` (`ID_PEDIDO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ITEM_PEDIDO_MEDICAMENTO` FOREIGN KEY (`ID_MEDICAMENTO`) REFERENCES `medicamento` (`ID_MEDICAMENTO`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `item_pedido`
---
-
-LOCK TABLES `item_pedido` WRITE;
-/*!40000 ALTER TABLE `item_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `item_pedido` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `item_venda`
---
-
-DROP TABLE IF EXISTS `item_venda`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item_venda` (
-  `ID_ITEM_VENDA` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_PRE_VENDA` int(11) DEFAULT NULL,
-  `ID_VENDA` int(11) DEFAULT NULL,
-  `ID_MEDICAMENTO` int(11) NOT NULL,
-  `QUANTIDADE` int(11) NOT NULL,
-  `VALOR_VENDIDO` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`ID_ITEM_VENDA`),
-  KEY `fk_ITEM_VENDA_PRE_VENDA` (`ID_PRE_VENDA`),
-  KEY `fk_ITEM_VENDA_VENDA` (`ID_VENDA`),
-  KEY `fk_ITEM_VENDA_MEDICAMENTO` (`ID_MEDICAMENTO`),
-  CONSTRAINT `fk_ITEM_VENDA_MEDICAMENTO` FOREIGN KEY (`ID_MEDICAMENTO`) REFERENCES `medicamento` (`ID_MEDICAMENTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ITEM_VENDA_PRE_VENDA` FOREIGN KEY (`ID_PRE_VENDA`) REFERENCES `pre_venda` (`ID_PREVENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ITEM_VENDA_VENDA` FOREIGN KEY (`ID_VENDA`) REFERENCES `venda` (`ID_VENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `item_venda`
---
-
-LOCK TABLES `item_venda` WRITE;
-/*!40000 ALTER TABLE `item_venda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `item_venda` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `medicamento`
---
-
-DROP TABLE IF EXISTS `medicamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `medicamento` (
-  `ID_MEDICAMENTO` int(11) NOT NULL AUTO_INCREMENT,
-  `NOME` varchar(50) NOT NULL,
-  `FORMULA` varchar(45) NOT NULL,
-  `FABRICANTE` varchar(45) NOT NULL,
-  `PRECO_VENDA` decimal(10,2) NOT NULL,
-  `PRECO_CUSTO` decimal(10,2) NOT NULL,
-  `CODIGO_DE_BARRAS` varchar(15) DEFAULT NULL,
-  `TIPO_MEDICAMENTO` varchar(10) NOT NULL,
-  `GRUPO_MEDICAMENTO` varchar(10) NOT NULL,
-  PRIMARY KEY (`ID_MEDICAMENTO`),
-  UNIQUE KEY `NOME_UNIQUE` (`NOME`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `medicamento`
---
-
-LOCK TABLES `medicamento` WRITE;
-/*!40000 ALTER TABLE `medicamento` DISABLE KEYS */;
-INSERT INTO `medicamento` VALUES (1,'Dipirona','Paracetamol','Bayer',3.00,1.00,'12345678','NC','De marca');
-/*!40000 ALTER TABLE `medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -198,6 +132,40 @@ LOCK TABLES `pedido` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `item_venda`
+--
+
+DROP TABLE IF EXISTS `item_venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_venda` (
+  `ID_ITEM_VENDA` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_PRE_VENDA` int(11) DEFAULT NULL,
+  `ID_VENDA` int(11) DEFAULT NULL,
+  `ID_MEDICAMENTO` int(11) NOT NULL,
+  `QUANTIDADE` int(11) NOT NULL,
+  `VALOR_VENDIDO` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`ID_ITEM_VENDA`),
+  KEY `fk_ITEM_VENDA_PRE_VENDA` (`ID_PRE_VENDA`),
+  KEY `fk_ITEM_VENDA_VENDA` (`ID_VENDA`),
+  KEY `fk_ITEM_VENDA_MEDICAMENTO` (`ID_MEDICAMENTO`),
+  CONSTRAINT `fk_ITEM_VENDA_MEDICAMENTO` FOREIGN KEY (`ID_MEDICAMENTO`) REFERENCES `medicamento` (`ID_MEDICAMENTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEM_VENDA_PRE_VENDA` FOREIGN KEY (`ID_PRE_VENDA`) REFERENCES `pre_venda` (`ID_PREVENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEM_VENDA_VENDA` FOREIGN KEY (`ID_VENDA`) REFERENCES `venda` (`ID_VENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `item_venda`
+--
+
+LOCK TABLES `item_venda` WRITE;
+/*!40000 ALTER TABLE `item_venda` DISABLE KEYS */;
+INSERT INTO `item_venda` VALUES (1,1,1,1,3,4.00),(2,1,1,1,4,9.00);
+/*!40000 ALTER TABLE `item_venda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pessoa`
 --
 
@@ -223,7 +191,7 @@ CREATE TABLE `pessoa` (
   UNIQUE KEY `NOME_UNIQUE` (`NOME`),
   UNIQUE KEY `CPF_UNIQUE` (`CPF`),
   UNIQUE KEY `CNPJ_UNIQUE` (`CNPJ`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,41 +200,8 @@ CREATE TABLE `pessoa` (
 
 LOCK TABLES `pessoa` WRITE;
 /*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
-INSERT INTO `pessoa` VALUES (1,NULL,'11111111111','Allan Carlos','Rua 6','Sulacap','Cidade','21750000','99999999','PessoaFisica',NULL,NULL,NULL,NULL),(2,'04927171000179',NULL,'Dois Irmãos Ltda','Rua 8','Bangu','Rio de Janeiro','12344000','66666666','PessoaJuridica',NULL,NULL,NULL,NULL),(3,NULL,'12312312398','Joaquin Carvalho dos Santos','Rua 3','Padre Miguel','Rio de Janeiro','98234000','33333333','Funcionario','balconista','5467','x',NULL),(4,NULL,'12436768665','Jonas','Rua 8','Madureira','Rio de Janeiro','12348344','93899999','Medico',NULL,NULL,NULL,'12534');
+INSERT INTO `pessoa` VALUES (1,NULL,'11111111111','Allan Carlos','Rua 6','Sulacap','Cidade','21750000','99999999','PessoaFisica',NULL,NULL,NULL,NULL),(2,'04927171000179',NULL,'Dois Irmãos Ltda','Rua 8','Bangu','Rio de Janeiro','12344000','66666666','PessoaJuridica',NULL,NULL,NULL,NULL),(3,NULL,'12312312398','Joaquin Carvalho dos Santos','Rua 3','Padre Miguel','Rio de Janeiro','98234000','33333333','Funcionario','balconista','5467','x',NULL),(4,NULL,'12436768665','Jonas','Rua 8','Madureira','Rio de Janeiro','12348344','93899999','Medico',NULL,NULL,NULL,'12534'),(5,NULL,'12345698700','Tiago Mendes','Rua A','Campo Grande','Rio de Janeiro','76566000','77777777','Funcionario','caixa','tiago','x',''),(6,NULL,'99988877732','Flavio','Vintem','Padre Miguel','Rio de Janeiro','12354000','21888899990','Funcionario','gerente','flavio','x',NULL);
 /*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pre_venda`
---
-
-DROP TABLE IF EXISTS `pre_venda`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pre_venda` (
-  `ID_PREVENDA` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_FUNCIONARIO` int(11) NOT NULL,
-  `ID_CLIENTE` int(11) DEFAULT NULL,
-  `ID_MEDICO` int(11) DEFAULT NULL,
-  `DATA_HORA_PREVENDA` datetime NOT NULL,
-  `DESCONTO` decimal(10,0) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID_PREVENDA`),
-  KEY `fk_PREVENDA_FUNCIONARIO` (`ID_FUNCIONARIO`),
-  KEY `fk_PREVENDA_CLIENTE` (`ID_CLIENTE`),
-  KEY `fk_PREVENDA_MEDICO` (`ID_MEDICO`),
-  CONSTRAINT `fk_PREVENDA_CLIENTE` FOREIGN KEY (`ID_CLIENTE`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PREVENDA_FUNCIONARIO` FOREIGN KEY (`ID_FUNCIONARIO`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PREVENDA_MEDICO` FOREIGN KEY (`ID_MEDICO`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pre_venda`
---
-
-LOCK TABLES `pre_venda` WRITE;
-/*!40000 ALTER TABLE `pre_venda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pre_venda` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -287,10 +222,10 @@ CREATE TABLE `venda` (
   KEY `fk_VENDA_PREVENDA` (`ID_PRE_VENDA`),
   KEY `fk_VENDA_FUNCIONARIO` (`ID_FUNCIONARIO`),
   KEY `fk_VENDA_CARTAO` (`ID_CARTAO`),
-  CONSTRAINT `fk_VENDA_PREVENDA` FOREIGN KEY (`ID_PRE_VENDA`) REFERENCES `pre_venda` (`ID_PREVENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_VENDA_CARTAO` FOREIGN KEY (`ID_CARTAO`) REFERENCES `cartao` (`ID_CARTAO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_VENDA_FUNCIONARIO` FOREIGN KEY (`ID_FUNCIONARIO`) REFERENCES `pessoa` (`ID_PESSOA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_VENDA_CARTAO` FOREIGN KEY (`ID_CARTAO`) REFERENCES `cartao` (`ID_CARTAO`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_VENDA_PREVENDA` FOREIGN KEY (`ID_PRE_VENDA`) REFERENCES `pre_venda` (`ID_PREVENDA`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +234,40 @@ CREATE TABLE `venda` (
 
 LOCK TABLES `venda` WRITE;
 /*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` VALUES (1,1,1,1,64,'2013-01-01 10:00:00');
 /*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `medicamento`
+--
+
+DROP TABLE IF EXISTS `medicamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `medicamento` (
+  `ID_MEDICAMENTO` int(11) NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(50) NOT NULL,
+  `FORMULA` varchar(45) NOT NULL,
+  `FABRICANTE` varchar(45) NOT NULL,
+  `PRECO_VENDA` decimal(10,2) NOT NULL,
+  `PRECO_CUSTO` decimal(10,2) NOT NULL,
+  `CODIGO_DE_BARRAS` varchar(15) DEFAULT NULL,
+  `TIPO_MEDICAMENTO` varchar(10) NOT NULL,
+  `GRUPO_MEDICAMENTO` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID_MEDICAMENTO`),
+  UNIQUE KEY `NOME_UNIQUE` (`NOME`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicamento`
+--
+
+LOCK TABLES `medicamento` WRITE;
+/*!40000 ALTER TABLE `medicamento` DISABLE KEYS */;
+INSERT INTO `medicamento` VALUES (1,'Dipirona','Paracetamol','Bayer',3.00,1.00,'12345678','Genérico','Não Contro'),(2,'Cloridrato de Ranitidina','Cloridrato de Ranitidina','Medley',18.00,10.00,'7896422517324','De Marca','Controlado');
+/*!40000 ALTER TABLE `medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -311,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-30 17:55:45
+-- Dump completed on 2013-11-09 10:26:54

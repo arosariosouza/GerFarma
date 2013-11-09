@@ -22,23 +22,19 @@ GROUP BY TIPO_MEDICAMENTO]]>
 	</background>
 	<title>
 		<band height="70" splitType="Stretch">
-			<image>
-				<reportElement uuid="1c7b8dde-fda4-42dd-9364-915ace9f4d19" x="275" y="0" width="300" height="64"/>
-				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement uuid="967a0573-1b7c-42c1-8f29-a8a47f49307b" style="Title" x="0" y="13" width="263" height="33"/>
+				<reportElement uuid="967a0573-1b7c-42c1-8f29-a8a47f49307b" style="Title" x="0" y="13" width="448" height="33"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="DejaVu Sans" size="18"/>
 				</textElement>
-				<text><![CDATA[Leaf Green Title]]></text>
+				<text><![CDATA[Gerfarma - Gerenciamento de Farmácia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6577459e-0f73-41f3-9f58-d496e84c6ee4" style="SubTitle" x="100" y="46" width="174" height="22"/>
+				<reportElement uuid="6577459e-0f73-41f3-9f58-d496e84c6ee4" style="SubTitle" x="100" y="46" width="317" height="22"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[Leaf Green SubTitle]]></text>
+				<text><![CDATA[Venda por Tipo de Medicamento]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -58,21 +54,21 @@ GROUP BY TIPO_MEDICAMENTO]]>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[TIPO_MEDICAMENTO]]></text>
+				<text><![CDATA[Tipo de Medicamento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3926d403-17a0-453d-853a-6f6c1a58abda" style="Column header" x="185" y="19" width="185" height="15"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[QTDE_TOTAL]]></text>
+				<text><![CDATA[Quantidade Total]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="53e0afac-1ec1-4886-892f-f75582bbcbc5" style="Column header" x="370" y="19" width="185" height="15"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[VALOR_TOTAL]]></text>
+				<text><![CDATA[Valor Total]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -124,7 +120,7 @@ GROUP BY TIPO_MEDICAMENTO]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement uuid="41d8b5f7-c7fb-4ffe-a0ce-cd3a44244d56" style="Column header" x="513" y="0" width="40" height="20"/>
