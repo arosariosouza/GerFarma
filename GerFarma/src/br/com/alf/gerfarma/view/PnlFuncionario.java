@@ -194,7 +194,7 @@ public class PnlFuncionario extends JPanel {
 
         deleteButton.addActionListener(formListener);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Caixa", "Balconista", "Farmacêutico", "Gerente" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "caixa", "balconista", "farmacêutico", "gerente" }));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cargo}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
