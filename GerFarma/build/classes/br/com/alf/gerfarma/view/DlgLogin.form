@@ -30,10 +30,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
                           <Component id="lblSenha" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="ftxtUsuario" pref="187" max="32767" attributes="0"/>
                           <Component id="ftxtSenha" max="32767" attributes="0"/>
@@ -54,13 +54,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ftxtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ftxtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -73,28 +73,10 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblUsuario">
-      <Properties>
-        <Property name="displayedMnemonic" type="int" value="117"/>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="ftxtUsuario"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Usu&#xe1;rio:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JFormattedTextField" name="ftxtUsuario">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ftxtUsuarioActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblSenha">
-      <Properties>
-        <Property name="displayedMnemonic" type="int" value="115"/>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="ftxtSenha"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Senha:"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnEntrar">
       <Properties>
@@ -121,6 +103,16 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="ftxtSenha">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblUsuario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Usu&#xe1;rio:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSenha">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Senha:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
