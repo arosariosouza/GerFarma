@@ -4,7 +4,6 @@
  */
 package br.com.alf.gerfarma.view;
 
-import java.awt.EventQueue;
 import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.List;
@@ -351,10 +350,23 @@ public class PnlCliente extends JPanel {
     //Motra tela de cadastro de cartao
     public void mostrar(JFrame f) {
         JDialog tela = new JDialog(f,true);
+        carregarTela(tela);
+    }
+    
+    public void mostrar (java.awt.Dialog d) {
+        JDialog tela = new JDialog(d, true);
+        carregarTela(tela);
+    }
+    
+    private void carregarTela(JDialog tela) {
         tela.setContentPane(new PnlCliente());
         tela.setTitle("GerFarma - Cadastro de Clientes");
         tela.setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
         tela.pack();
         tela.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        new PnlCliente().mostrar(new JFrame());
     }
 }

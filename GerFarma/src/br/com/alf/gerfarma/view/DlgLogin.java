@@ -4,6 +4,7 @@
  */
 package br.com.alf.gerfarma.view;
 
+import br.com.alf.gerfarma.control.JusCadastroController;
 import br.com.alf.gerfarma.model.entity.Funcionario;
 import br.com.alf.gerfarma.util.JPAUtil;
 import javax.persistence.EntityManager;
@@ -150,6 +151,7 @@ public class DlgLogin extends javax.swing.JDialog {
                         
                         if (funcionario != null) {
                                 habilitarBotoes(funcionario.getCargo());
+                                JusCadastroController.setFuncionarioCorrente(funcionario);
                                 this.dispose();
                         } else {
                                 JOptionPane.showMessageDialog(this, "Usuário desconhecido.");
@@ -213,7 +215,7 @@ public class DlgLogin extends javax.swing.JDialog {
                         habilitarVenda(true);
                         habilitarCompra(false);
                         habilitarBalcao(false);
-                        habilitarCadastros(false);
+                        habilitarCadastros(false);                        
                         habilitarRelatorio(false);
                 } else {
                         if (cargo.equals(Funcionario.CARGO_BALCONISTA)) {
@@ -221,6 +223,7 @@ public class DlgLogin extends javax.swing.JDialog {
                                 habilitarCompra(false);
                                 habilitarBalcao(true);
                                 habilitarCadastros(false);
+                                formPrincipal.getItmCliente().setEnabled(true);
                                 habilitarRelatorio(false);
                         } else {
                                 if (cargo.equals(Funcionario.CARGO_FARMACEUTICO)) {

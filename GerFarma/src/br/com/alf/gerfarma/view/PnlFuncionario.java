@@ -417,4 +417,8 @@ public class PnlFuncionario extends JPanel {
         tela.pack();
         tela.setVisible(true);
     }
+    
+    public static void main(String[] args) {
+        new PnlFuncionario().mostrar(new JFrame());
+    }
 }

@@ -4,10 +4,20 @@
  */
 package br.com.alf.gerfarma.control;
 
+import br.com.alf.gerfarma.model.entity.Funcionario;
+
 /**
  *
  * @author allan
  */
 public class JusCadastroController {
-    
+    private static Funcionario funcionarioCorrente = null;
+
+    public static Funcionario getFuncionarioCorrente() {
+        return funcionarioCorrente;
+    }
+
+    public static void setFuncionarioCorrente(Funcionario aFuncionarioCorrente) {
+        funcionarioCorrente = aFuncionarioCorrente;
+    }    
 }

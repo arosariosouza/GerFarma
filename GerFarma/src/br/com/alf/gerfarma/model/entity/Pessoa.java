@@ -36,7 +36,7 @@ public abstract class Pessoa implements Serializable {
     @Column(name="ID_PESSOA")
     protected int idPessoa;
     
-    @Column(name="NOME")
+    @Column(name="NOME", unique = true)
     private String nome;
     
     @Column(name="ENDERECO")
