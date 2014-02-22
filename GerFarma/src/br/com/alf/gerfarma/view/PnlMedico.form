@@ -11,7 +11,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
     </Component>
-    <Component class="javax.persistence.Query" name="query">
+    <Component class="javax.persistence.Query" name="query1">
       <Properties>
         <Property name="query" type="java.lang.String" value="SELECT m FROM Medico m"/>
         <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
@@ -26,7 +26,7 @@
     <Component class="java.util.List" name="list">
       <Properties>
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="query"/>
+          <ComponentRef name="query1"/>
         </Property>
         <Property name="observable" type="boolean" value="true"/>
       </Properties>
@@ -68,7 +68,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cpfLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="nomeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="enderecoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="bairroLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -79,7 +78,6 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cpfField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="nomeField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="enderecoField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="bairroField" alignment="0" max="32767" attributes="0"/>
@@ -90,6 +88,11 @@
                               </Group>
                           </Group>
                           <Component id="masterScrollPane" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextField1" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -100,14 +103,14 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="masterScrollPane" pref="112" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cpfLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cpfField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="masterScrollPane" pref="109" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="nomeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="nomeField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -201,11 +204,6 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
               </TableColumnModel>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -214,10 +212,6 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${cpf}">
-                <BindingParameter name="NAME" value="Cpf"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-              </Subbinding>
               <Subbinding sourcePath="${nome}">
                 <BindingParameter name="NAME" value="Nome"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
@@ -255,11 +249,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="cpfLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cpf:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="nomeLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome:"/>
@@ -294,14 +283,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Crm:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="cpfField">
-      <BindingProperties>
-        <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.cpf}" target="cpfField" targetPath="text" updateStrategy="0" immediately="false">
-          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
-        </BindingProperty>
-        <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="cpfField" targetPath="enabled" updateStrategy="1" immediately="false"/>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="nomeField">
       <BindingProperties>
@@ -421,6 +402,19 @@
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/alf/gerfarma/view/img/consulta_16x16.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Pesquisar:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyPressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

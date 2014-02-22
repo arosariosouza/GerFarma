@@ -199,7 +199,8 @@ public class Medicamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.alf.gerfarma.model.entity.Medicamento[ idMedicamento=" + idMedicamento + " ]";
+        return this.tipoMedicamento;
+        
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -211,3 +212,4 @@ public class Medicamento implements Serializable {
     }
     
 }
+
