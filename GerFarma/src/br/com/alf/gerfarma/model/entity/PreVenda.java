@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.com.alf.gerfarma.view;
+package br.com.alf.gerfarma.model.entity;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
