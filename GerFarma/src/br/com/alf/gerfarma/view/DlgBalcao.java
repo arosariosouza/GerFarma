@@ -5,13 +5,18 @@
 package br.com.alf.gerfarma.view;
 
 import br.com.alf.gerfarma.control.JusCadastroController;
-import br.com.alf.gerfarma.model.entity.Pessoa;
-import java.awt.Frame;
+import java.awt.AWTEvent;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
+import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,10 +31,11 @@ public class DlgBalcao extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        //Preenche o nome do Funcionario logado no sistema
-        txtFuncionario.setText(JusCadastroController.getFuncionarioCorrente().getUsuario());
-        
+        configuraFuncoesDeTeclado();
+        preencheUsuarioAtual();
+        preencherDataAtual();
         carregarListaDeClientes();
+        carregarListaDeMedicos();
     }
 
     /**
@@ -41,13 +47,10 @@ public class DlgBalcao extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        entityManager0 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("gerfarma?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        preVendaQuery = java.beans.Beans.isDesignTime() ? null : entityManager0.createQuery("SELECT p FROM PreVenda p");
-        preVendaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : preVendaQuery.getResultList();
         lblFuncionario = new javax.swing.JLabel();
         txtFuncionario = new javax.swing.JTextField();
-        lblData = new javax.swing.JLabel();
         lblDataHora = new javax.swing.JLabel();
+        lblDataHoraValor = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
         cbxClientes = new javax.swing.JComboBox();
         pnlProdutos = new javax.swing.JPanel();
@@ -76,18 +79,22 @@ public class DlgBalcao extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GerFarma - Balcão");
         setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         lblFuncionario.setText("Funcionário:");
 
         txtFuncionario.setEditable(false);
 
-        lblData.setText("Data:");
+        lblDataHora.setText("Data:");
 
-        lblDataHora.setText("23/09/2013 - 17:10");
+        lblDataHoraValor.setText("23/09/2013 - 17:10");
 
         lblCliente.setText("Cliente:*");
 
-        cbxClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Allan Carlos do Rosário Souza", "Flávio Lúcio Curado", "Lucisley Pereira Soares" }));
         cbxClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxClientesActionPerformed(evt);
@@ -131,12 +138,12 @@ public class DlgBalcao extends javax.swing.JDialog {
             pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlProdutosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(sclProduto)
                     .addGroup(pnlProdutosLayout.createSequentialGroup()
                         .addComponent(lblPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblQtde)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -149,7 +156,7 @@ public class DlgBalcao extends javax.swing.JDialog {
                 .addGroup(pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdicinar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlProdutosLayout.setVerticalGroup(
             pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +194,7 @@ public class DlgBalcao extends javax.swing.JDialog {
             pnlValorTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlValorTotalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlValorTotalLayout.setVerticalGroup(
@@ -221,6 +228,11 @@ public class DlgBalcao extends javax.swing.JDialog {
 
         btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/consulta_32x32.png"))); // NOI18N
         btnConsulta.setText("F3 Consulta");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
 
         btnCancela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/cancelar_32x32.png"))); // NOI18N
         btnCancela.setText("F4 Cancela");
@@ -247,8 +259,8 @@ public class DlgBalcao extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblFuncionario)
@@ -258,23 +270,21 @@ public class DlgBalcao extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblData)
+                                        .addComponent(lblDataHora)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblDataHora))
+                                        .addComponent(lblDataHoraValor))
                                     .addComponent(cbxClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(184, 184, 184)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlCodigoBalcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCancela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnFinaliza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(pnlValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlCodigoBalcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFinaliza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblControleMedico)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -289,8 +299,8 @@ public class DlgBalcao extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFuncionario)
                             .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblData)
-                            .addComponent(lblDataHora))
+                            .addComponent(lblDataHora)
+                            .addComponent(lblDataHoraValor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCliente)
@@ -298,7 +308,7 @@ public class DlgBalcao extends javax.swing.JDialog {
                             .addComponent(btnAdicionarCliente)))
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +324,7 @@ public class DlgBalcao extends javax.swing.JDialog {
                     .addComponent(pnlProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblControleMedico)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -323,11 +333,20 @@ public class DlgBalcao extends javax.swing.JDialog {
 
     private void btnAdicionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarClienteActionPerformed
         new PnlCliente().mostrar(this);
+        carregarListaDeClientes();
     }//GEN-LAST:event_btnAdicionarClienteActionPerformed
 
         private void cbxClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxClientesActionPerformed
                 // TODO add your handling code here:
         }//GEN-LAST:event_cbxClientesActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+
+    }//GEN-LAST:event_formKeyTyped
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        JOptionPane.showMessageDialog(this, "teste");
+    }//GEN-LAST:event_btnConsultaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -339,12 +358,11 @@ public class DlgBalcao extends javax.swing.JDialog {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRemover;
     private javax.swing.JComboBox cbxClientes;
-    private javax.persistence.EntityManager entityManager0;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigoBalcao;
     private javax.swing.JLabel lblControleMedico;
-    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataHora;
+    private javax.swing.JLabel lblDataHoraValor;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblPesquisar;
@@ -355,8 +373,6 @@ public class DlgBalcao extends javax.swing.JDialog {
     private javax.swing.JPanel pnlCodigoBalcao;
     private javax.swing.JPanel pnlProdutos;
     private javax.swing.JPanel pnlValorTotal;
-    private java.util.List<br.com.alf.gerfarma.model.entity.PreVenda> preVendaList;
-    private javax.persistence.Query preVendaQuery;
     private javax.swing.JScrollPane sclProduto;
     private javax.swing.JTable tblProduto;
     private javax.swing.JTextField txtFuncionario;
@@ -366,18 +382,60 @@ public class DlgBalcao extends javax.swing.JDialog {
     
     private EntityManager entityManager;
     private Query query;
+    private Date dataAtual;
     
     private void carregarListaDeClientes() {
         //Buscando nome de clientes do banco
         entityManager = Persistence.createEntityManagerFactory("GERFARMAPU").createEntityManager();
-        query = entityManager.createQuery("SELECT p.nome FROM Pessoa p");
+        query = entityManager.createQuery("SELECT p.nome FROM Pessoa p ORDER BY p.nome");
         List<String> clientes = query.getResultList();
         
         //Adicionando nomes de clientes
         cbxClientes.removeAllItems();
-        cbxClientes.addItem("Selecione um cliente");
+        cbxClientes.addItem("::: Selecione um cliente :::");
         for (String cliente : clientes) {
             cbxClientes.addItem(cliente);
         }
+    }
+    
+    private void preencherDataAtual() {
+        dataAtual = new Date();
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(dataAtual);
+        
+        String dia = String.valueOf(calendario.get(Calendar.DAY_OF_MONTH));
+        String mes = String.valueOf(calendario.get(Calendar.MONTH));
+        String ano = String.valueOf(calendario.get(Calendar.YEAR));
+        
+        String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY));
+        String minuto = String.valueOf(calendario.get(Calendar.MINUTE));
+        
+        String dataAtualStr = dia + "/" + mes + "/" + ano + " - " + hora + ":" + minuto;
+        lblDataHoraValor.setText(dataAtualStr);   
+    }
+    
+    private void preencheUsuarioAtual() {
+        txtFuncionario.setText(JusCadastroController.getFuncionarioCorrente().getUsuario());
+    }
+    
+    private void configuraFuncoesDeTeclado() {
+        Toolkit.getDefaultToolkit().addAWTEventListener  (  
+            new AWTEventListener() {
+                @Override
+                public void eventDispatched(final AWTEvent awt_evt){  
+                    final KeyEvent  
+                    evt = (KeyEvent) awt_evt;  
+
+                    switch (evt.getKeyCode()) {  
+                       case KeyEvent.VK_F3: {btnConsulta.doClick();}
+                    }
+                }  
+            },
+            AWTEvent.KEY_EVENT_MASK  
+        );  
+    }
+
+    private void carregarListaDeMedicos() {
+        
     }
 }
