@@ -9,12 +9,14 @@
     <class>br.com.alf.gerfarma.model.entity.Funcionario</class>
     <class>br.com.alf.gerfarma.model.entity.Medicamento</class>
     <class>br.com.alf.gerfarma.model.entity.Medico</class>
+    <class>br.com.alf.gerfarma.model.entity.PreVenda</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gerfarma"/>
       <property name="javax.persistence.jdbc.password" value="x"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
   <persistence-unit name="gerfarma?zeroDateTimeBehavior=convertToNullPU" transaction-type="RESOURCE_LOCAL">

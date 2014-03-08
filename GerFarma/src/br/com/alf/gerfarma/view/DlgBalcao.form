@@ -31,11 +31,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlProdutos" max="32767" attributes="0"/>
+                          <Component id="pnlMedicamento" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblFuncionario" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblDataHoraValor" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="cbxClientes" max="32767" attributes="0"/>
+                                  <Component id="cbxClientes" pref="312" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdicionarCliente" min="-2" pref="105" max="-2" attributes="0"/>
@@ -59,20 +59,34 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnlValorTotal" min="-2" max="-2" attributes="0"/>
-                          <Component id="pnlCodigoBalcao" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNovo" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                          <Component id="btnConsulta" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
-                          <Component id="btnCancela" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
-                          <Component id="lblLogo" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
-                          <Component id="btnFinaliza" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnConsulta" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="btnCancela" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="lblLogo" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                                  <Component id="btnFinaliza" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="btnNovo" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="pnlCodigoBalcao" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblControleMedico" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblControleMedico" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblCliente1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cbxMedicos" min="-2" pref="314" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnAdicionarCliente1" min="-2" pref="105" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,24 +111,33 @@
                   </Group>
                   <Component id="lblLogo" min="-2" pref="56" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="pnlValorTotal" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlCodigoBalcao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnNovo" min="-2" pref="53" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnConsulta" min="-2" pref="53" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnCancela" min="-2" pref="53" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnFinaliza" min="-2" pref="53" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="pnlProdutos" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbxMedicos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAdicionarCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="pnlValorTotal" min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlCodigoBalcao" min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnConsulta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnCancela" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnFinaliza" min="-2" pref="41" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlMedicamento" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="lblControleMedico" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
@@ -157,11 +180,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxClientesActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JPanel" name="pnlProdutos">
+    <Container class="javax.swing.JPanel" name="pnlMedicamento">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Produtos"/>
+            <TitledBorder title="Medicamentos"/>
           </Border>
         </Property>
       </Properties>
@@ -172,12 +195,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="sclProduto" max="32767" attributes="0"/>
+                      <Component id="sclProduto" pref="645" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="lblPesquisar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPesquisar" pref="386" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbxMedicamentos" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblQtde" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="txtNumeroQtde" min="-2" pref="39" max="-2" attributes="0"/>
@@ -201,12 +224,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblQtde" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtNumeroQtde" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAdicinar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbxMedicamentos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -224,10 +247,8 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblPesquisar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar:"/>
+            <Property name="text" type="java.lang.String" value="Selecionar:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtPesquisar">
         </Component>
         <Component class="javax.swing.JLabel" name="lblQtde">
           <Properties>
@@ -254,7 +275,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/alf/gerfarma/view/img/adicionar_16x16.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Adicionar"/>
+            <Property name="text" type="java.lang.String" value="Incluir"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="sclProduto">
@@ -316,8 +337,19 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/alf/gerfarma/view/img/remover_16x16.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Remover"/>
+            <Property name="text" type="java.lang.String" value="Excluir"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbxMedicamentos">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxMedicamentosItemStateChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxMedicamentosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -350,7 +382,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblValorTotal" min="-2" pref="48" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="lblValorTotal" min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -390,7 +425,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblCodigoBalcao" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="lblCodigoBalcao" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -461,6 +499,32 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarClienteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCliente1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="M&#xe9;dico:*"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbxMedicos">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxMedicosActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAdicionarCliente1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/alf/gerfarma/view/img/adicionar_16x16.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Adicionar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarCliente1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

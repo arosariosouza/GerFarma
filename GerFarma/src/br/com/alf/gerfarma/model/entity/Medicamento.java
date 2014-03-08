@@ -13,6 +13,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,11 +43,12 @@ public class Medicamento implements Serializable {
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_MEDICAMENTO")
     private int idMedicamento;
     @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME", unique = true)
     private String nome;
     @Basic(optional = false)
     @Column(name = "FORMULA")
@@ -62,6 +65,26 @@ public class Medicamento implements Serializable {
     private BigDecimal precoCusto;
     @Column(name = "CODIGO_DE_BARRAS")
     private String codigoDeBarras;
+    @Column(name = "QUANTIDADE_ESTOQUE")
+    private int quantidadeEstoque;
+    @Column(name = "QUANTIDADE_ESTOQUE_MINIMO")
+    private int quantidadeEstoqueMinimo;
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public int getQuantidadeEstoqueMinimo() {
+        return quantidadeEstoqueMinimo;
+    }
+
+    public void setQuantidadeEstoqueMinimo(int quantidadeEstoqueMinimo) {
+        this.quantidadeEstoqueMinimo = quantidadeEstoqueMinimo;
+    }
     @Basic(optional = false)
     @Column(name = "TIPO_MEDICAMENTO")
     @Enumerated(EnumType.STRING)

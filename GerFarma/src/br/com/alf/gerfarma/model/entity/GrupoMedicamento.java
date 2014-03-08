@@ -8,7 +8,7 @@ package br.com.alf.gerfarma.model.entity;
 
 
 public enum GrupoMedicamento {
-                GENERICO("Generio"), MARCA("Marca"), SIMILAR("Similar");
+                GENERICO("Genérico"), MARCA("Marca"), SIMILAR("Similar");
 
         public String valor;
 
