@@ -4,14 +4,21 @@
  */
 package br.com.alf.gerfarma.view;
 
-import br.com.alf.gerfarma.control.JusCadastroController;
-import br.com.alf.gerfarma.model.entity.Funcionario;
+import br.com.alf.gerfarma.GerFarma;
+import br.com.alf.gerfarma.control.GerFarmaController;
+import br.com.alf.gerfarma.model.entity.ItemVenda;
 import br.com.alf.gerfarma.model.entity.Medicamento;
+import br.com.alf.gerfarma.model.entity.Medico;
+import br.com.alf.gerfarma.model.entity.Pessoa;
+import br.com.alf.gerfarma.model.entity.PreVenda;
+import br.com.alf.gerfarma.model.entity.TipoMedicamento;
 import br.com.alf.gerfarma.util.JPAUtil;
+import br.com.alf.gerfarma.util.Moeda;
 import java.awt.AWTEvent;
 import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +28,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,17 +38,20 @@ public class DlgBalcao extends javax.swing.JDialog {
 
     /**
      * Creates new form DlgBalcao
+     *
+     * @param parent
+     * @param modal
      */
     public DlgBalcao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
         configuraFuncoesDeTeclado();
         preencheUsuarioAtual();
         preencherDataAtual();
         carregarListaDeClientes();
         carregarListaDeMedicos();
         carregarListaDeMedicamentos();
+        listarItemsVenda();
     }
 
     /**
@@ -65,24 +76,22 @@ public class DlgBalcao extends javax.swing.JDialog {
         lblValorUnitario = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
         btnAdicinar = new javax.swing.JButton();
-        sclProduto = new javax.swing.JScrollPane();
-        tblProduto = new javax.swing.JTable();
         btnRemover = new javax.swing.JButton();
         cbxMedicamentos = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMedicamento = new javax.swing.JTable();
         lblLogo = new javax.swing.JLabel();
         pnlValorTotal = new javax.swing.JPanel();
         lblValorTotal = new javax.swing.JLabel();
         pnlCodigoBalcao = new javax.swing.JPanel();
         lblCodigoBalcao = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
-        btnConsulta = new javax.swing.JButton();
-        btnCancela = new javax.swing.JButton();
         btnFinaliza = new javax.swing.JButton();
         lblControleMedico = new javax.swing.JLabel();
         btnAdicionarCliente = new javax.swing.JButton();
         lblCliente1 = new javax.swing.JLabel();
         cbxMedicos = new javax.swing.JComboBox();
-        btnAdicionarCliente1 = new javax.swing.JButton();
+        btnAdicionarMedico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GerFarma - Balcão");
@@ -115,30 +124,31 @@ public class DlgBalcao extends javax.swing.JDialog {
 
         lblQtde.setText("Qtde:");
 
-        txtNumeroQtde.setText("1");
+        txtNumeroQtde.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        txtNumeroQtde.setText("0");
 
         lblValorUnitario.setText("Valor Unitário:");
 
+        lblValor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblValor.setText("R$ 1,00");
 
         btnAdicinar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/adicionar_16x16.png"))); // NOI18N
         btnAdicinar.setText("Incluir");
-
-        tblProduto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Código", "Produto", "Qtde.", "Valor Unitário", "Valor Total do Produto"
+        btnAdicinar.setToolTipText("");
+        btnAdicinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicinarActionPerformed(evt);
             }
-        ));
-        sclProduto.setViewportView(tblProduto);
+        });
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/remover_16x16.png"))); // NOI18N
         btnRemover.setText("Excluir");
+        btnRemover.setToolTipText("");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         cbxMedicamentos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -151,14 +161,26 @@ public class DlgBalcao extends javax.swing.JDialog {
             }
         });
 
+        tblMedicamento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblMedicamento);
+
         javax.swing.GroupLayout pnlMedicamentoLayout = new javax.swing.GroupLayout(pnlMedicamento);
         pnlMedicamento.setLayout(pnlMedicamentoLayout);
         pnlMedicamentoLayout.setHorizontalGroup(
             pnlMedicamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMedicamentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlMedicamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sclProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+                .addGroup(pnlMedicamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMedicamentoLayout.createSequentialGroup()
                         .addComponent(lblPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,7 +192,8 @@ public class DlgBalcao extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblValorUnitario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValor)))
+                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlMedicamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,30 +213,28 @@ public class DlgBalcao extends javax.swing.JDialog {
                     .addComponent(cbxMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMedicamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMedicamentoLayout.createSequentialGroup()
-                        .addComponent(btnRemover)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(sclProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnRemover)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/balcao_48x48.png"))); // NOI18N
 
-        pnlValorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total (R$)"));
+        pnlValorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
 
         lblValorTotal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblValorTotal.setForeground(new java.awt.Color(49, 106, 197));
         lblValorTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValorTotal.setText("108,00");
+        lblValorTotal.setText("0,00");
 
         javax.swing.GroupLayout pnlValorTotalLayout = new javax.swing.GroupLayout(pnlValorTotal);
         pnlValorTotal.setLayout(pnlValorTotalLayout);
         pnlValorTotalLayout.setHorizontalGroup(
             pnlValorTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlValorTotalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlValorTotalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlValorTotalLayout.setVerticalGroup(
@@ -228,7 +249,7 @@ public class DlgBalcao extends javax.swing.JDialog {
         lblCodigoBalcao.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblCodigoBalcao.setForeground(new java.awt.Color(49, 106, 197));
         lblCodigoBalcao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigoBalcao.setText("163434");
+        lblCodigoBalcao.setText("0");
 
         javax.swing.GroupLayout pnlCodigoBalcaoLayout = new javax.swing.GroupLayout(pnlCodigoBalcao);
         pnlCodigoBalcao.setLayout(pnlCodigoBalcaoLayout);
@@ -236,7 +257,7 @@ public class DlgBalcao extends javax.swing.JDialog {
             pnlCodigoBalcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCodigoBalcaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblCodigoBalcao, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addComponent(lblCodigoBalcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlCodigoBalcaoLayout.setVerticalGroup(
@@ -248,26 +269,24 @@ public class DlgBalcao extends javax.swing.JDialog {
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/novo_32x32.png"))); // NOI18N
         btnNovo.setText("F2 Novo");
-
-        btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/consulta_32x32.png"))); // NOI18N
-        btnConsulta.setText("F3 Consulta");
-        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
-        btnCancela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/cancelar_32x32.png"))); // NOI18N
-        btnCancela.setText("F4 Cancela");
-
         btnFinaliza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/aplicar_32x32.png"))); // NOI18N
-        btnFinaliza.setText("F5 Finaliza");
+        btnFinaliza.setText("F3 Finaliza");
+        btnFinaliza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizaActionPerformed(evt);
+            }
+        });
 
         lblControleMedico.setForeground(new java.awt.Color(255, 0, 0));
         lblControleMedico.setText("* Campo obrigatório para venda de medicamento controlado");
 
-        btnAdicionarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/adicionar_16x16.png"))); // NOI18N
-        btnAdicionarCliente.setText("Adicionar");
+        btnAdicionarCliente.setText("Adicionar...");
         btnAdicionarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarClienteActionPerformed(evt);
@@ -282,11 +301,10 @@ public class DlgBalcao extends javax.swing.JDialog {
             }
         });
 
-        btnAdicionarCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/adicionar_16x16.png"))); // NOI18N
-        btnAdicionarCliente1.setText("Adicionar");
-        btnAdicionarCliente1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionarMedico.setText("Adicionar...");
+        btnAdicionarMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarCliente1ActionPerformed(evt);
+                btnAdicionarMedicoActionPerformed(evt);
             }
         });
 
@@ -299,7 +317,6 @@ public class DlgBalcao extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblFuncionario)
@@ -314,19 +331,16 @@ public class DlgBalcao extends javax.swing.JDialog {
                                         .addComponent(lblDataHoraValor))
                                     .addComponent(cbxClientes, 0, 312, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAdicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCancela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnFinaliza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pnlCodigoBalcao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnAdicionarCliente)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(pnlMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlValorTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlCodigoBalcao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFinaliza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblControleMedico)
@@ -335,7 +349,7 @@ public class DlgBalcao extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(cbxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAdicionarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnAdicionarMedico)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -360,24 +374,18 @@ public class DlgBalcao extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCliente1)
                     .addComponent(cbxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionarCliente1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAdicionarMedico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
                         .addComponent(pnlValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlCodigoBalcao, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(btnNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConsulta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancela)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFinaliza, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFinaliza))
+                    .addComponent(pnlMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblControleMedico)
                 .addGap(12, 12, 12))
@@ -400,17 +408,14 @@ public class DlgBalcao extends javax.swing.JDialog {
 
     }//GEN-LAST:event_formKeyTyped
 
-    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-        JOptionPane.showMessageDialog(this, "teste");
-    }//GEN-LAST:event_btnConsultaActionPerformed
-
     private void cbxMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMedicosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxMedicosActionPerformed
 
-    private void btnAdicionarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarCliente1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdicionarCliente1ActionPerformed
+    private void btnAdicionarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMedicoActionPerformed
+        new PnlMedico().mostrar(this);
+        carregarListaDeMedicos();
+    }//GEN-LAST:event_btnAdicionarMedicoActionPerformed
 
     private void cbxMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMedicamentosActionPerformed
 
@@ -421,37 +426,163 @@ public class DlgBalcao extends javax.swing.JDialog {
             String nome = (String) cbxMedicamentos.getSelectedItem();
             //Busca medicamento por nome no banco de dados
             EntityManager em = JPAUtil.getInstance();
-            typedQuery = em.createNamedQuery("Medicamento.findByNome", Funcionario.class)
+            typedQuery = em.createNamedQuery("Medicamento.findByNome", Medicamento.class)
                     .setParameter("nome", nome);
 
-            Medicamento medicamento = null;
-            if (!query.getResultList().isEmpty()) {
-                medicamento = (Medicamento) typedQuery.getSingleResult();
+            medicamentoSelecionado = null;
+            if (!typedQuery.getResultList().isEmpty()) {
+                medicamentoSelecionado = (Medicamento) typedQuery.getSingleResult();
             }
 
-            if (medicamento != null) {
-                medicamentoSelecionado = medicamento;
+            if (medicamentoSelecionado != null) {
+                lblValor.setText(Moeda.mascaraDinheiro(medicamentoSelecionado.getPrecoVenda(), Moeda.DINHEIRO_REAL));
             } else {
-                JOptionPane.showMessageDialog(this, "O medicamento "+nome+" não foi encontrado.");
+                JOptionPane.showMessageDialog(this, "O medicamento " + nome + " não foi encontrado.");
                 cbxMedicamentos.setSelectedIndex(0);
             }
 
+        } else {
+            lblValor.setText(Moeda.mascaraDinheiro(0, Moeda.DINHEIRO_REAL));
         }
     }//GEN-LAST:event_cbxMedicamentosItemStateChanged
 
+    private void btnAdicinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicinarActionPerformed
+        if (medicamentoSelecionado != null) {
+            int quantidade = 0;
+            try {
+                quantidade = Integer.parseInt(txtNumeroQtde.getText());
+                if (quantidade == 0) {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Quantidade inválida.");
+                txtNumeroQtde.requestFocus();
+                txtNumeroQtde.selectAll();
+                return;
+            }
+
+            if (quantidade > medicamentoSelecionado.getQuantidadeEstoque()) {
+                JOptionPane.showMessageDialog(this, "Quantidade não disponível no estoque.");
+            } else {
+
+                // Procura medicamento na lista
+                ItemVenda itemVendaEncontrado = null;
+                for (ItemVenda itemVenda : itemsVenda) {
+                    if (medicamentoSelecionado.getNome().equals(itemVenda.getMedicamento().getNome())) {
+                        itemVendaEncontrado = itemVenda;
+                    }
+                }
+
+                if (itemVendaEncontrado == null) {
+                    ItemVenda itemVenda = new ItemVenda();
+                    itemVenda.setQuantidade(quantidade);
+                    itemVenda.setValorVendido(medicamentoSelecionado.getPrecoVenda());
+                    itemVenda.setMedicamento(medicamentoSelecionado);
+                    itemsVenda.add(itemVenda);
+                    cbxMedicamentos.setSelectedIndex(0);
+                    txtNumeroQtde.setText("0");
+                } else {
+                    if (itemVendaEncontrado.getQuantidade() + quantidade > medicamentoSelecionado.getQuantidadeEstoque()) {
+                        JOptionPane.showMessageDialog(this, "Quantidade não disponível no estoque.");
+                    } else {
+                        itemVendaEncontrado.setQuantidade(itemVendaEncontrado.getQuantidade() + quantidade);
+                        itemVendaEncontrado.setValorVendido(medicamentoSelecionado.getPrecoVenda());
+                        cbxMedicamentos.setSelectedIndex(0);
+                        txtNumeroQtde.setText("0");
+                    }
+                }
+                listarItemsVenda();
+                mostraValorTotal();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um medicamento.");
+            cbxMedicamentos.requestFocus();
+        }
+    }//GEN-LAST:event_btnAdicinarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (tblMedicamento.getSelectedRow() > -1) {
+            itemsVenda.remove(tblMedicamento.getSelectedRow());
+            listarItemsVenda();
+            mostraValorTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um item de pre-venda.");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        cbxClientes.setSelectedIndex(0);
+        cbxMedicos.setSelectedIndex(0);
+        cbxMedicamentos.setSelectedIndex(0);
+        itemsVenda = new ArrayList<ItemVenda>();
+        mostraValorTotal();
+        listarItemsVenda();
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnFinalizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizaActionPerformed
+        //Verifica se foi adicionado algum item
+        if (itemsVenda.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Não existem itens a serem registrados.");
+            return;
+        }
+
+        //Verifica se foram selecionados medicamentos controlados
+        boolean existeRemedioControlado = false;
+        for (ItemVenda item : itemsVenda) {
+            if (item.getMedicamento().getTipoMedicamento() == TipoMedicamento.CONTROLADO) {
+                existeRemedioControlado = true;
+                break;
+            }
+        }
+
+        if (existeRemedioControlado) {
+            if (cbxClientes.getSelectedIndex() == 0 || cbxMedicos.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Foram adicionados medicamentos controlados. Por favor selecione o cliente e o médico responsavel.");
+                return;
+            }            
+        }
+
+        try {
+            
+            //Cria PreVenda
+            PreVenda preVenda = new PreVenda();
+            preVenda.setDataHoraPrevenda(dataAtual);
+            preVenda.setFuncionario(GerFarmaController.getFuncionarioCorrente());
+            preVenda.setMedico(buscarMedico());
+            preVenda.setCliente(buscarCliente());
+            preVenda.setItemsVenda(itemsVenda);
+
+            //Baixa no Estoque
+            for (ItemVenda item : itemsVenda) {
+                Medicamento medicamento = item.getMedicamento();
+                medicamento.setQuantidadeEstoque(medicamento.getQuantidadeEstoque() - item.getQuantidade());
+            }
+
+            entityManager = JPAUtil.getInstance();
+            entityManager.getTransaction().begin();
+            entityManager.persist(preVenda);
+            entityManager.getTransaction().commit();
+            
+            lblCodigoBalcao.setText(String.valueOf(preVenda.getIdPrevenda()));
+            JOptionPane.showMessageDialog(this, "PreVenda finalizada com sucesso.\n Anote o código: "+preVenda.getIdPrevenda());
+        } catch (Exception e) {
+            //entityManager.getTransaction().rollback();
+            JOptionPane.showMessageDialog(this, "Não foi possível Finalizar PreVenda.\n"+e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnFinalizaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicinar;
     private javax.swing.JButton btnAdicionarCliente;
-    private javax.swing.JButton btnAdicionarCliente1;
-    private javax.swing.JButton btnCancela;
-    private javax.swing.JButton btnConsulta;
+    private javax.swing.JButton btnAdicionarMedico;
     private javax.swing.JButton btnFinaliza;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRemover;
     private javax.swing.JComboBox cbxClientes;
     private javax.swing.JComboBox cbxMedicamentos;
     private javax.swing.JComboBox cbxMedicos;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCliente1;
     private javax.swing.JLabel lblCodigoBalcao;
@@ -468,11 +599,12 @@ public class DlgBalcao extends javax.swing.JDialog {
     private javax.swing.JPanel pnlCodigoBalcao;
     private javax.swing.JPanel pnlMedicamento;
     private javax.swing.JPanel pnlValorTotal;
-    private javax.swing.JScrollPane sclProduto;
-    private javax.swing.JTable tblProduto;
+    private javax.swing.JTable tblMedicamento;
     private javax.swing.JTextField txtFuncionario;
     private javax.swing.JFormattedTextField txtNumeroQtde;
     // End of variables declaration//GEN-END:variables
+
+    private List<ItemVenda> itemsVenda = new ArrayList<ItemVenda>();
 
     private EntityManager entityManager;
     private Query query;
@@ -481,7 +613,7 @@ public class DlgBalcao extends javax.swing.JDialog {
     private Medicamento medicamentoSelecionado;
 
     private void preencheUsuarioAtual() {
-        txtFuncionario.setText(JusCadastroController.getFuncionarioCorrente().getUsuario());
+        txtFuncionario.setText(GerFarmaController.getFuncionarioCorrente().getUsuario());
     }
 
     private void carregarListaDeClientes() {
@@ -550,13 +682,76 @@ public class DlgBalcao extends javax.swing.JDialog {
                         final KeyEvent evt = (KeyEvent) awt_evt;
 
                         switch (evt.getKeyCode()) {
+                            case KeyEvent.VK_F2: {
+                                btnNovo.doClick();
+                                break;
+                            }
                             case KeyEvent.VK_F3: {
-                                btnConsulta.doClick();
+                                btnFinaliza.doClick();
+                                break;
                             }
                         }
                     }
                 },
                 AWTEvent.KEY_EVENT_MASK
         );
+    }
+
+    private void listarItemsVenda() {
+
+        String[] columnNames = new String[]{"Produto", "Qtde.", "Valor Unitário", "Valor Total do Produto"};
+        String[][] data = null;
+
+        if (itemsVenda.size() > 0) {
+            data = new String[itemsVenda.size()][4];
+
+            int row = 0;
+            for (ItemVenda itemVenda : itemsVenda) {
+                data[row][0] = itemVenda.getMedicamento().getNome();
+                data[row][1] = String.valueOf(itemVenda.getQuantidade());
+                data[row][2] = String.valueOf(Moeda.mascaraDinheiro(itemVenda.getValorVendido(), Moeda.DINHEIRO_REAL));
+                data[row][3] = String.valueOf(Moeda.mascaraDinheiro(itemVenda.getQuantidade() * itemVenda.getValorVendido(), Moeda.DINHEIRO_REAL));
+                row++;
+            };
+        }
+        tblMedicamento.setModel(new DefaultTableModel(data, columnNames));
+    }
+
+    private void mostraValorTotal() {
+        double valorTotal = 0;
+        for (ItemVenda itemVenda : itemsVenda) {
+            valorTotal += itemVenda.getQuantidade() * itemVenda.getValorVendido();
+        }
+        lblValorTotal.setText(Moeda.mascaraDinheiro(valorTotal, Moeda.DINHEIRO_REAL));
+    }
+
+    private Medico buscarMedico() {
+        String nome = (String) cbxMedicos.getSelectedItem();
+        //Busca medicamento por nome no banco de dados
+        EntityManager em = JPAUtil.getInstance();
+        query = em.createQuery("SELECT m FROM Medico m WHERE m.nome = :nome", Medico.class)
+                .setParameter("nome", nome);
+
+        Medico medico = null;
+        if (!query.getResultList().isEmpty()) {
+            medico = (Medico) query.getSingleResult();
+        }
+
+        return medico;
+    }
+
+    private Pessoa buscarCliente() {
+        String nome = (String) cbxClientes.getSelectedItem();
+        //Busca medicamento por nome no banco de dados
+        EntityManager em = JPAUtil.getInstance();
+        query = em.createQuery("SELECT p FROM Pessoa p WHERE p.nome = :nome", Pessoa.class)
+                .setParameter("nome", nome);
+
+        Pessoa cliente = null;
+        if (!query.getResultList().isEmpty()) {
+            cliente = (Pessoa) query.getSingleResult();
+        }
+
+        return cliente;
     }
 }

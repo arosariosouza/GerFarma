@@ -4,7 +4,7 @@
  */
 package br.com.alf.gerfarma.view;
 
-import br.com.alf.gerfarma.control.JusCadastroController;
+import br.com.alf.gerfarma.control.GerFarmaController;
 import br.com.alf.gerfarma.model.entity.Funcionario;
 import br.com.alf.gerfarma.util.JPAUtil;
 import java.awt.event.KeyEvent;
@@ -163,7 +163,7 @@ public class DlgLogin extends javax.swing.JDialog {
 
                     if (funcionario != null) {
                         habilitarBotoes(funcionario.getCargo());
-                        JusCadastroController.setFuncionarioCorrente(funcionario);
+                        GerFarmaController.setFuncionarioCorrente(funcionario);
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Usuário desconhecido.");
@@ -186,7 +186,7 @@ public class DlgLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
-        teclarEnter(evt);
+        
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

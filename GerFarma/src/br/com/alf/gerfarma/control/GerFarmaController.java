@@ -10,7 +10,7 @@ import br.com.alf.gerfarma.model.entity.Funcionario;
  *
  * @author allan
  */
-public class JusCadastroController {
+public class GerFarmaController {
     private static Funcionario funcionarioCorrente = null;
 
     public static Funcionario getFuncionarioCorrente() {

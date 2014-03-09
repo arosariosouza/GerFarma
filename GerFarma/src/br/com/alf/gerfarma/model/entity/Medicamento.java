@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -59,10 +60,10 @@ public class Medicamento implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "PRECO_VENDA")
-    private BigDecimal precoVenda;
+    private double precoVenda;
     @Basic(optional = false)
     @Column(name = "PRECO_CUSTO")
-    private BigDecimal precoCusto;
+    private double precoCusto;
     @Column(name = "CODIGO_DE_BARRAS")
     private String codigoDeBarras;
     @Column(name = "QUANTIDADE_ESTOQUE")
@@ -85,11 +86,9 @@ public class Medicamento implements Serializable {
     public void setQuantidadeEstoqueMinimo(int quantidadeEstoqueMinimo) {
         this.quantidadeEstoqueMinimo = quantidadeEstoqueMinimo;
     }
-    @Basic(optional = false)
     @Column(name = "TIPO_MEDICAMENTO")
     @Enumerated(EnumType.STRING)
     private TipoMedicamento tipoMedicamento;
-    @Basic(optional = false)
     @Column(name = "GRUPO_MEDICAMENTO")
     @Enumerated(EnumType.STRING)
     private GrupoMedicamento grupoMedicamento;
@@ -101,7 +100,7 @@ public class Medicamento implements Serializable {
         this.idMedicamento = idMedicamento;
     }
 
-    public Medicamento(Integer idMedicamento, String nome, String formula, String fabricante, BigDecimal precoVenda, BigDecimal precoCusto, TipoMedicamento tipoMedicamento, GrupoMedicamento grupoMedicamento) {
+    public Medicamento(Integer idMedicamento, String nome, String formula, String fabricante, double precoVenda, double precoCusto, TipoMedicamento tipoMedicamento, GrupoMedicamento grupoMedicamento) {
         this.idMedicamento = idMedicamento;
         this.nome = nome;
         this.formula = formula;
@@ -152,22 +151,22 @@ public class Medicamento implements Serializable {
         changeSupport.firePropertyChange("fabricante", oldFabricante, fabricante);
     }
 
-    public BigDecimal getPrecoVenda() {
+    public double getPrecoVenda() {
         return precoVenda;
     }
 
-    public void setPrecoVenda(BigDecimal precoVenda) {
-        BigDecimal oldPrecoVenda = this.precoVenda;
+    public void setPrecoVenda(double precoVenda) {
+        double oldPrecoVenda = this.precoVenda;
         this.precoVenda = precoVenda;
         changeSupport.firePropertyChange("precoVenda", oldPrecoVenda, precoVenda);
     }
 
-    public BigDecimal getPrecoCusto() {
+    public double getPrecoCusto() {
         return precoCusto;
     }
 
-    public void setPrecoCusto(BigDecimal precoCusto) {
-        BigDecimal oldPrecoCusto = this.precoCusto;
+    public void setPrecoCusto(double precoCusto) {
+        double oldPrecoCusto = this.precoCusto;
         this.precoCusto = precoCusto;
         changeSupport.firePropertyChange("precoCusto", oldPrecoCusto, precoCusto);
     }
@@ -231,6 +230,6 @@ public class Medicamento implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }
 

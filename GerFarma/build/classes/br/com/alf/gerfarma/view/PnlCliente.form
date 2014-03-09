@@ -202,7 +202,7 @@
             </Property>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
+            <BindingProperty name="elements" source="list" sourcePath="${}" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${nome}">
                 <BindingParameter name="NAME" value="Nome"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
@@ -234,6 +234,7 @@
             </BindingProperty>
           </BindingProperties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="PnlCliente_masterTable"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
           </AuxValues>

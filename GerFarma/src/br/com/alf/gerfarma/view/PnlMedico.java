@@ -395,6 +395,15 @@ public class PnlMedico extends JPanel {
     //Motra tela de cadastro de medicamento
     public void mostrar(JFrame f) {
         JDialog tela = new JDialog(f,true);
+        carregarTela(tela);
+    }
+        
+    public void mostrar(java.awt.Dialog f) {
+        JDialog tela = new JDialog(f,true);
+        carregarTela(tela);
+    }
+    
+    private void carregarTela(JDialog tela) {
         tela.setContentPane(new PnlMedico());
         tela.setTitle("GerFarma - Cadastro de Médicos");
         tela.setIconImage(new ImageIcon(getClass().getResource("/br/com/alf/gerfarma/view/img/logo_32x29.png")).getImage());
