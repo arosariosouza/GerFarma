@@ -7,18 +7,15 @@ package br.com.alf.gerfarma.model.entity;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -87,11 +84,9 @@ public class Medicamento implements Serializable {
         this.quantidadeEstoqueMinimo = quantidadeEstoqueMinimo;
     }
     @Column(name = "TIPO_MEDICAMENTO")
-    @Enumerated(EnumType.STRING)
-    private TipoMedicamento tipoMedicamento;
+    private String tipoMedicamento;
     @Column(name = "GRUPO_MEDICAMENTO")
-    @Enumerated(EnumType.STRING)
-    private GrupoMedicamento grupoMedicamento;
+    private String grupoMedicamento;
 
     public Medicamento() {
     }
@@ -100,7 +95,7 @@ public class Medicamento implements Serializable {
         this.idMedicamento = idMedicamento;
     }
 
-    public Medicamento(Integer idMedicamento, String nome, String formula, String fabricante, double precoVenda, double precoCusto, TipoMedicamento tipoMedicamento, GrupoMedicamento grupoMedicamento) {
+    public Medicamento(Integer idMedicamento, String nome, String formula, String fabricante, double precoVenda, double precoCusto, String tipoMedicamento, String grupoMedicamento) {
         this.idMedicamento = idMedicamento;
         this.nome = nome;
         this.formula = formula;
@@ -181,22 +176,22 @@ public class Medicamento implements Serializable {
         changeSupport.firePropertyChange("codigoDeBarras", oldCodigoDeBarras, codigoDeBarras);
     }
 
-    public TipoMedicamento getTipoMedicamento() {
+    public String getTipoMedicamento() {
         return tipoMedicamento;
     }
 
-    public void setTipoMedicamento(TipoMedicamento tipoMedicamento) {
-        TipoMedicamento oldTipoMedicamento = this.tipoMedicamento;
+    public void setTipoMedicamento(String tipoMedicamento) {
+        String oldTipoMedicamento = this.tipoMedicamento;
         this.tipoMedicamento = tipoMedicamento;
         changeSupport.firePropertyChange("tipoMedicamento", oldTipoMedicamento, tipoMedicamento);
     }
 
-    public GrupoMedicamento getGrupoMedicamento() {
+    public String getGrupoMedicamento() {
         return grupoMedicamento;
     }
 
-    public void setGrupoMedicamento(GrupoMedicamento grupoMedicamento) {
-        GrupoMedicamento oldGrupoMedicamento = this.grupoMedicamento;
+    public void setGrupoMedicamento(String grupoMedicamento) {
+        String oldGrupoMedicamento = this.grupoMedicamento;
         this.grupoMedicamento = grupoMedicamento;
         changeSupport.firePropertyChange("grupoMedicamento", oldGrupoMedicamento, grupoMedicamento);
     }

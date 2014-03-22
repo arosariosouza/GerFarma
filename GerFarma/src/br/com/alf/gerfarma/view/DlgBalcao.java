@@ -11,7 +11,6 @@ import br.com.alf.gerfarma.model.entity.Medicamento;
 import br.com.alf.gerfarma.model.entity.Medico;
 import br.com.alf.gerfarma.model.entity.Pessoa;
 import br.com.alf.gerfarma.model.entity.PreVenda;
-import br.com.alf.gerfarma.model.entity.TipoMedicamento;
 import br.com.alf.gerfarma.util.JPAUtil;
 import br.com.alf.gerfarma.util.Moeda;
 import java.awt.AWTEvent;
@@ -529,7 +528,7 @@ public class DlgBalcao extends javax.swing.JDialog {
         //Verifica se foram selecionados medicamentos controlados
         boolean existeRemedioControlado = false;
         for (ItemVenda item : itemsVenda) {
-            if (item.getMedicamento().getTipoMedicamento() == TipoMedicamento.CONTROLADO) {
+            if (item.getMedicamento().getTipoMedicamento().trim().toUpperCase() == "CONTROLADO") {
                 existeRemedioControlado = true;
                 break;
             }
@@ -544,24 +543,27 @@ public class DlgBalcao extends javax.swing.JDialog {
 
         try {
             
-            //Cria PreVenda
+            // -----------------------------------------------------------------
+            entityManager = JPAUtil.getInstance();
+            entityManager.getTransaction().begin();
+
+            for (ItemVenda item : itemsVenda) {
+                //Medicamento medicamento = item.getMedicamento();
+                //medicamento.setQuantidadeEstoque(medicamento.getQuantidadeEstoque() - item.getQuantidade());
+                //entityManager.merge(medicamento);
+                entityManager.persist(item);
+            }
             PreVenda preVenda = new PreVenda();
             preVenda.setDataHoraPrevenda(dataAtual);
             preVenda.setFuncionario(GerFarmaController.getFuncionarioCorrente());
             preVenda.setMedico(buscarMedico());
             preVenda.setCliente(buscarCliente());
             preVenda.setItemsVenda(itemsVenda);
-
-            //Baixa no Estoque
-            for (ItemVenda item : itemsVenda) {
-                Medicamento medicamento = item.getMedicamento();
-                medicamento.setQuantidadeEstoque(medicamento.getQuantidadeEstoque() - item.getQuantidade());
-            }
-
-            entityManager = JPAUtil.getInstance();
-            entityManager.getTransaction().begin();
             entityManager.persist(preVenda);
+            
             entityManager.getTransaction().commit();
+
+            // -----------------------------------------------------------------
             
             lblCodigoBalcao.setText(String.valueOf(preVenda.getIdPrevenda()));
             JOptionPane.showMessageDialog(this, "PreVenda finalizada com sucesso.\n Anote o código: "+preVenda.getIdPrevenda());

@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `cartao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cartao` (
-  `ID_CARTAO` int(11) NOT NULL,
+  `ID_CARTAO` int(11) NOT NULL AUTO_INCREMENT,
   `BANDEIRA` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID_CARTAO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,36 @@ CREATE TABLE `cartao` (
 
 LOCK TABLES `cartao` WRITE;
 /*!40000 ALTER TABLE `cartao` DISABLE KEYS */;
+INSERT INTO `cartao` VALUES (1,'Visa'),(2,'MasterCard');
 /*!40000 ALTER TABLE `cartao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `item_venda`
+--
+
+DROP TABLE IF EXISTS `item_venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item_venda` (
+  `ID_ITEM_VENDA` int(11) NOT NULL AUTO_INCREMENT,
+  `QUANTIDADE` int(11) DEFAULT NULL,
+  `VALOR_VENDIDO` double DEFAULT NULL,
+  `MEDICAMENTO_ID_MEDICAMENTO` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID_ITEM_VENDA`),
+  KEY `FK_ITEM_VENDA_MEDICAMENTO_ID_MEDICAMENTO` (`MEDICAMENTO_ID_MEDICAMENTO`),
+  CONSTRAINT `FK_ITEM_VENDA_MEDICAMENTO_ID_MEDICAMENTO` FOREIGN KEY (`MEDICAMENTO_ID_MEDICAMENTO`) REFERENCES `medicamento` (`ID_MEDICAMENTO`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `item_venda`
+--
+
+LOCK TABLES `item_venda` WRITE;
+/*!40000 ALTER TABLE `item_venda` DISABLE KEYS */;
+INSERT INTO `item_venda` VALUES (1,1,4,1);
+/*!40000 ALTER TABLE `item_venda` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,7 +89,7 @@ CREATE TABLE `medicamento` (
   `QUANTIDADE_ESTOQUE` int(11) DEFAULT NULL,
   `QUANTIDADE_ESTOQUE_MINIMO` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID_MEDICAMENTO`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +98,7 @@ CREATE TABLE `medicamento` (
 
 LOCK TABLES `medicamento` WRITE;
 /*!40000 ALTER TABLE `medicamento` DISABLE KEYS */;
-INSERT INTO `medicamento` VALUES (1,'1234124','Medley','Dipirona','Genérico','Dipirona com 10 comprimidos',3,4,'Não Controlado',50,20),(2,'1232333','Roche','Rivotril','Marca','Clonazepam',7,20,'Controlado',10,5),(3,'1231312','Eurofarma','Etinilestradiol 0,035 mg; Acetato de ciproterona 2,000 mg','Similar','Selene',15,19,'Não Controlado',40,10);
+INSERT INTO `medicamento` VALUES (1,'1234124','Medley','Dipirona','Genérico','Dipirona com 10 comprimidos',3,4,'Não Controlado',49,20),(2,'1232333','Roche','Rivotril','Marca','Clonazepam',7,20,'Controlado',10,5),(3,'1231312','Eurofarma','Etinilestradiol 0,035 mg; Acetato de ciproterona 2,000 mg','Similar','Selene',15,19,'Não Controlado',38,10),(4,'123452345','Medley','Sorinol 350mg','Marca','Sorisal',4,2,'Não Controlado',0,0);
 /*!40000 ALTER TABLE `medicamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,11 +149,17 @@ CREATE TABLE `pre_venda` (
   `ID_PREVENDA` int(11) NOT NULL AUTO_INCREMENT,
   `DATA_HORA_PREVENDA` datetime DEFAULT NULL,
   `DESCONTO` bigint(20) DEFAULT NULL,
-  `ID_CLIENTE` int(11) DEFAULT NULL,
-  `ID_FUNCIONARIO` int(11) DEFAULT NULL,
-  `ID_MEDICO` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID_PREVENDA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `CLIENTE_ID_PESSOA` int(11) DEFAULT NULL,
+  `FUNCIONARIO_ID_PESSOA` int(11) DEFAULT NULL,
+  `MEDICO_ID_PESSOA` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID_PREVENDA`),
+  KEY `FK_pre_venda_MEDICO_ID_PESSOA` (`MEDICO_ID_PESSOA`),
+  KEY `FK_pre_venda_CLIENTE_ID_PESSOA` (`CLIENTE_ID_PESSOA`),
+  KEY `FK_pre_venda_FUNCIONARIO_ID_PESSOA` (`FUNCIONARIO_ID_PESSOA`),
+  CONSTRAINT `FK_pre_venda_CLIENTE_ID_PESSOA` FOREIGN KEY (`CLIENTE_ID_PESSOA`) REFERENCES `pessoa` (`ID_PESSOA`),
+  CONSTRAINT `FK_pre_venda_FUNCIONARIO_ID_PESSOA` FOREIGN KEY (`FUNCIONARIO_ID_PESSOA`) REFERENCES `pessoa` (`ID_PESSOA`),
+  CONSTRAINT `FK_pre_venda_MEDICO_ID_PESSOA` FOREIGN KEY (`MEDICO_ID_PESSOA`) REFERENCES `pessoa` (`ID_PESSOA`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +168,35 @@ CREATE TABLE `pre_venda` (
 
 LOCK TABLES `pre_venda` WRITE;
 /*!40000 ALTER TABLE `pre_venda` DISABLE KEYS */;
+INSERT INTO `pre_venda` VALUES (1,'2014-03-22 10:06:38',0,10,1,9);
 /*!40000 ALTER TABLE `pre_venda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pre_venda_item_venda`
+--
+
+DROP TABLE IF EXISTS `pre_venda_item_venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pre_venda_item_venda` (
+  `PreVenda_ID_PREVENDA` int(11) NOT NULL,
+  `itemsVenda_ID_ITEM_VENDA` int(11) NOT NULL,
+  PRIMARY KEY (`PreVenda_ID_PREVENDA`,`itemsVenda_ID_ITEM_VENDA`),
+  KEY `FK_pre_venda_ITEM_VENDA_itemsVenda_ID_ITEM_VENDA` (`itemsVenda_ID_ITEM_VENDA`),
+  CONSTRAINT `FK_pre_venda_ITEM_VENDA_itemsVenda_ID_ITEM_VENDA` FOREIGN KEY (`itemsVenda_ID_ITEM_VENDA`) REFERENCES `item_venda` (`ID_ITEM_VENDA`),
+  CONSTRAINT `FK_pre_venda_ITEM_VENDA_PreVenda_ID_PREVENDA` FOREIGN KEY (`PreVenda_ID_PREVENDA`) REFERENCES `pre_venda` (`ID_PREVENDA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pre_venda_item_venda`
+--
+
+LOCK TABLES `pre_venda_item_venda` WRITE;
+/*!40000 ALTER TABLE `pre_venda_item_venda` DISABLE KEYS */;
+INSERT INTO `pre_venda_item_venda` VALUES (1,1);
+/*!40000 ALTER TABLE `pre_venda_item_venda` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -145,4 +208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-08 10:51:08
+-- Dump completed on 2014-03-22 10:12:03

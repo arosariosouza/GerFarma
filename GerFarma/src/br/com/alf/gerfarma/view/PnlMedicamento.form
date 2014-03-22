@@ -36,119 +36,6 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
     </Component>
-    <Component class="javax.persistence.EntityManager" name="entityManager0">
-      <Properties>
-        <Property name="persistenceUnit" type="java.lang.String" value="gerfarma?zeroDateTimeBehavior=convertToNullPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery1">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList1">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery1"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery2">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList2">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery2"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery3">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList3">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery3"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery4">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList4">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery4"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="medicamentoQuery5">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM Medicamento m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="entityManager0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="medicamentoList5">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="medicamentoQuery5"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.alf.gerfarma.model.entity.Medicamento&gt;"/>
-      </AuxValues>
-    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -338,32 +225,27 @@
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${nome}">
-                <BindingParameter name="NAME" value="Nome"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${formula}">
-                <BindingParameter name="NAME" value="Formula"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${fabricante}">
-                <BindingParameter name="NAME" value="Fabricante"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${precoVenda}">
-                <BindingParameter name="NAME" value="Preco Venda"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
               </Subbinding>
               <Subbinding sourcePath="${precoCusto}">
-                <BindingParameter name="NAME" value="Preco Custo"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
               </Subbinding>
               <Subbinding sourcePath="${codigoDeBarras}">
-                <BindingParameter name="NAME" value="Codigo De Barras"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${tipoMedicamento}">
-                <BindingParameter name="NAME" value="Tipo Medicamento"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${grupoMedicamento}">
-                <BindingParameter name="NAME" value="Grupo Medicamento"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
             </BindingProperty>
@@ -541,14 +423,31 @@
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="::: Selecione :::"/>
+            <StringItem index="1" value="Controlado"/>
+            <StringItem index="2" value="N&#xe3;o Controlado"/>
+          </StringArray>
+        </Property>
+      </Properties>
       <BindingProperties>
-        <BindingProperty name="elements" source="medicamentoList4" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
         <BindingProperty name="selectedItem" source="masterTable" sourcePath="${selectedElement.tipoMedicamento}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox2">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="::: Selecione :::"/>
+            <StringItem index="1" value="Gen&#xe9;rico"/>
+            <StringItem index="2" value="Marca"/>
+            <StringItem index="3" value="Similar"/>
+          </StringArray>
+        </Property>
+      </Properties>
       <BindingProperties>
-        <BindingProperty name="elements" source="medicamentoList5" target="jComboBox2" targetPath="elements" updateStrategy="0" immediately="false"/>
         <BindingProperty name="selectedItem" source="masterTable" sourcePath="${selectedElement.grupoMedicamento}" target="jComboBox2" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
