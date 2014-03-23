@@ -73,7 +73,9 @@ public class Medicamento implements Serializable {
     }
 
     public void setQuantidadeEstoque(int quantidadeEstoque) {
+            int oldQuantidadeEstoque = this.quantidadeEstoque;
         this.quantidadeEstoque = quantidadeEstoque;
+            changeSupport.firePropertyChange("quantidadeEstoque", oldQuantidadeEstoque, quantidadeEstoque);
     }
 
     public int getQuantidadeEstoqueMinimo() {
@@ -81,7 +83,9 @@ public class Medicamento implements Serializable {
     }
 
     public void setQuantidadeEstoqueMinimo(int quantidadeEstoqueMinimo) {
+            int oldQuantidadeEstoqueMinimo = this.quantidadeEstoqueMinimo;
         this.quantidadeEstoqueMinimo = quantidadeEstoqueMinimo;
+            changeSupport.firePropertyChange("quantidadeEstoqueMinimo", oldQuantidadeEstoqueMinimo, quantidadeEstoqueMinimo);
     }
     @Column(name = "TIPO_MEDICAMENTO")
     private String tipoMedicamento;

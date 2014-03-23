@@ -49,7 +49,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblDataHoraValor" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="cbxClientes" pref="312" max="32767" attributes="0"/>
+                                  <Component id="cbxClientes" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdicionarCliente" min="-2" max="-2" attributes="0"/>
@@ -362,7 +362,7 @@
               <Color blue="c5" green="6a" red="31" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="0,00"/>
+            <Property name="text" type="java.lang.String" value="R$ 0,00"/>
           </Properties>
         </Component>
       </SubComponents>
