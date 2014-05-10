@@ -52,9 +52,6 @@ public class PreVenda implements Serializable {
     @Column(name = "DATA_HORA_PREVENDA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraPrevenda;
-    @Basic(optional = false)
-    @Column(name = "DESCONTO")
-    private long desconto;
 
     public List<ItemVenda> getItemsVenda() {
         return itemsVenda;
@@ -74,11 +71,10 @@ public class PreVenda implements Serializable {
         this.idPrevenda = idPrevenda;
     }
 
-    public PreVenda(Integer idPrevenda, Funcionario funcionario, Date dataHoraPrevenda, long desconto) {
+    public PreVenda(Integer idPrevenda, Funcionario funcionario, Date dataHoraPrevenda) {
         this.idPrevenda = idPrevenda;
         this.funcionario = funcionario;
         this.dataHoraPrevenda = dataHoraPrevenda;
-        this.desconto = desconto;
     }
 
     public Integer getIdPrevenda() {
@@ -129,16 +125,6 @@ public class PreVenda implements Serializable {
         Date oldDataHoraPrevenda = this.dataHoraPrevenda;
         this.dataHoraPrevenda = dataHoraPrevenda;
         changeSupport.firePropertyChange("dataHoraPrevenda", oldDataHoraPrevenda, dataHoraPrevenda);
-    }
-
-    public long getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(long desconto) {
-        long oldDesconto = this.desconto;
-        this.desconto = desconto;
-        changeSupport.firePropertyChange("desconto", oldDesconto, desconto);
     }
 
     @Override

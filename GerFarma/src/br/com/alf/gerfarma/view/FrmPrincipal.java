@@ -395,8 +395,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itmCompraActionPerformed
 
     private void itmVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmVendaActionPerformed
-            //mostrar tela de caixa   
-                 
+        //mostrar tela de caixa
+        new DlgCaixa(this, true).setVisible(true);
     }//GEN-LAST:event_itmVendaActionPerformed
 
     private void itmBalcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBalcaoActionPerformed
@@ -449,7 +449,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itmVTMActionPerformed
 
         private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-                // TODO add your handling code here:
+                new DlgCaixa(this, true).setVisible(true);
                 
         }//GEN-LAST:event_btnVendaActionPerformed
 

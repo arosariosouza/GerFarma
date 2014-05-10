@@ -72,7 +72,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblCliente1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cbxMedicos" min="-2" pref="314" max="-2" attributes="0"/>
+                              <Component id="cbxMedicos" min="-2" pref="302" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdicionarMedico" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -190,7 +190,11 @@
                           <Component id="lblQtde" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="txtNumeroQtde" min="-2" pref="39" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblEstoque" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblValorEstoque" min="-2" pref="73" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblValorUnitario" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblValor" min="-2" pref="70" max="-2" attributes="0"/>
@@ -217,6 +221,8 @@
                       <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAdicinar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbxMedicamentos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblValorEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -314,6 +320,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="lblEstoque">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Estoque:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblValorEstoque">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="lblLogo">
